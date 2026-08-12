@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>doc-to-crm — черга перевірки</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --ink: #14161a; --muted: #6b7280;
+    --line: #e2e5ea; --accent: #2563eb; --warn: #b45309; --warn-bg: #fef6e7;
+    --err: #b42318; --err-bg: #fdf2f0; --ok: #067647; --ok-bg: #ecfdf3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115; --card: #171a20; --ink: #e6e8ec; --muted: #9aa1ac;
+      --line: #262a33; --accent: #6ea8fe; --warn: #f0b429; --warn-bg: #2a2113;
+      --err: #f87171; --err-bg: #2a1616; --ok: #4ade80; --ok-bg: #12241a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 5; background: var(--card);
+    border-bottom: 1px solid var(--line); padding: 14px 22px;
+    display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+  }
+  h1 { font-size: 16px; margin: 0; font-weight: 650; }
+  .sub { color: var(--muted); font-size: 12.5px; }
+  main { padding: 22px; max-width: 1100px; margin: 0 auto; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 16px;
+  }
+  .doc-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+  .doc-id { font-weight: 620; }
+  .badge {
+    font-size: 11.5px; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--line);
+    color: var(--muted); white-space: nowrap;
+  }
+  .badge.err { color: var(--err); background: var(--err-bg); border-color: transparent; }
+  .badge.ok { color: var(--ok); background: var(--ok-bg); border-color: transparent; }
+  .issues { margin: 12px 0 4px; padding: 0; list-style: none; }
+  .issues li {
+    padding: 7px 10px; border-radius: 7px; margin-bottom: 6px; font-size: 13px;
+    background: var(--warn-bg); color: var(--warn);
+  }
+  .issues li.error { background: var(--err-bg); color: var(--err); }
+  .issues code { font-size: 12px; opacity: .8; }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px 14px; margin-top: 12px;
+  }
+  .field label { display: block; font-size: 11.5px; color: var(--muted); margin-bottom: 3px; }
+  .field input {
+    width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line);
+    background: transparent; color: inherit; font: inherit;
+  }
+  .field.low input { border-color: var(--warn); background: var(--warn-bg); }
+  .conf { font-size: 11px; color: var(--muted); margin-left: 6px; }
+  .field.low .conf { color: var(--warn); font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 550; font-size: 11.5px; text-transform: uppercase; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .actions { margin-top: 14px; display: flex; gap: 10px; align-items: center; }
+  button {
+    font: inherit; padding: 7px 14px; border-radius: 7px; border: 1px solid var(--line);
+    background: var(--card); color: inherit; cursor: pointer;
+  }
+  button.primary { background: var(--accent); border-color: transparent; color: #fff; }
+  button:disabled { opacity: .5; cursor: default; }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+  .flash { color: var(--muted); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>doc-to-crm</h1>
+  <span class="sub" id="stats">завантаження…</span>
+  <span style="flex:1"></span>
+  <input type="file" id="file" accept=".pdf,.jpg,.jpeg,.png,.webp" style="max-width:230px">
+  <button id="upload">Завантажити документ</button>
+  <button id="refresh">Оновити</button>
+</header>
+<main id="queue"><div class="empty">завантаження…</div></main>
+
+<script>
+const $ = (sel, root = document) => root.querySelector(sel);
+let threshold = 0.75;
+
+const NUMERIC = new Set(["subtotal", "vat_rate", "vat_amount", "total"]);
+const LABELS = {
+  supplier_name: "Постачальник", supplier_edrpou: "ЄДРПОУ постачальника",
+  buyer_name: "Покупець", buyer_edrpou: "ЄДРПОУ покупця",
+  invoice_number: "Номер", invoice_date: "Дата", currency: "Валюта",
+  subtotal: "Сума без ПДВ", vat_rate: "Ставка ПДВ, %", vat_amount: "ПДВ", total: "До сплати",
+};
+
+function esc(v) {
+  return String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function fieldHtml(doc, key) {
+  const value = doc.extraction ? doc.extraction[key] : null;
+  const conf = doc.extraction ? (doc.extraction.confidence[key] ?? 1) : 0;
+  const low = conf < threshold;
+  return `<div class="field ${low ? "low" : ""}">
+    <label>${LABELS[key]}<span class="conf">${conf.toFixed(2)}</span></label>
+    <input data-doc="${esc(doc.doc_id)}" data-field="${key}" value="${esc(value)}">
+  </div>`;
+}
+
+function itemsHtml(doc) {
+  const items = doc.extraction ? doc.extraction.line_items : [];
+  if (!items || !items.length) return "";
+  const rows = items.map(i => `<tr>
+      <td>${esc(i.description)}</td>
+      <td class="num">${esc(i.quantity)}</td>
+      <td>${esc(i.unit)}</td>
+      <td class="num">${esc(i.unit_price)}</td>
+      <td class="num">${esc(i.amount)}</td>
+    </tr>`).join("");
+  return `<table><thead><tr>
+      <th>Позиція</th><th class="num">К-сть</th><th>Од.</th>
+      <th class="num">Ціна</th><th class="num">Сума</th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function docHtml(doc) {
+  const issues = (doc.issues || []).map(i => `<li class="${i.severity}">
+      <b>${esc(i.message)}</b>
+      ${i.expected != null ? ` — очікувалось <code>${esc(i.expected)}</code>, у документі <code>${esc(i.actual)}</code>` : ""}
+      <code>[${esc(i.code)}]</code>
+    </li>`).join("");
+  const fields = Object.keys(LABELS).map(k => fieldHtml(doc, k)).join("");
+  const err = doc.status === "fallback_error";
+  return `<section class="card" data-doc="${esc(doc.doc_id)}">
+    <div class="doc-head">
+      <div>
+        <span class="doc-id">${esc(doc.doc_id)}</span>
+        <span class="sub"> · ${esc(doc.source_path)}</span>
+      </div>
+      <div>
+        <span class="badge ${err ? "err" : ""}">${esc(doc.status)}</span>
+        <span class="badge">${(doc.latency_s ?? 0).toFixed(1)} с</span>
+      </div>
+    </div>
+    ${doc.processing_error ? `<ul class="issues"><li class="error">${esc(doc.processing_error)}</li></ul>` : ""}
+    ${issues ? `<ul class="issues">${issues}</ul>` : ""}
+    ${doc.extraction ? `<div class="grid">${fields}</div>${itemsHtml(doc)}` : ""}
+    <div class="actions">
+      <button class="primary" data-action="approve" data-doc="${esc(doc.doc_id)}">Підтвердити</button>
+      <button data-action="reject" data-doc="${esc(doc.doc_id)}">Відхилити</button>
+      <span class="flash" data-flash="${esc(doc.doc_id)}"></span>
+    </div>
+  </section>`;
+}
+
+async function load() {
+  const [queue, health] = await Promise.all([
+    fetch("/queue?limit=50").then(r => r.json()),
+    fetch("/health").then(r => r.json()),
+  ]);
+  threshold = queue.threshold ?? 0.75;
+  const counts = health.documents || {};
+  $("#stats").textContent =
+    `у черзі: ${queue.count} · автоматично: ${counts.auto_ok || 0} · `
+    + `дублів: ${counts.duplicate || 0} · помилок: ${counts.fallback_error || 0} · `
+    + `поріг впевненості: ${threshold}`;
+  $("#queue").innerHTML = queue.items.length
+    ? queue.items.map(docHtml).join("")
+    : `<div class="empty">Черга порожня — усі документи пройшли автоматично.</div>`;
+}
+
+async function decide(docId, decision) {
+  const corrections = {};
+  document.querySelectorAll(`input[data-doc="${CSS.escape(docId)}"]`).forEach(input => {
+    const key = input.dataset.field;
+    let value = input.value.trim();
+    if (value === "") { corrections[key] = null; return; }
+    corrections[key] = NUMERIC.has(key) ? Number(value.replace(",", ".")) : value;
+  });
+  const flash = document.querySelector(`[data-flash="${CSS.escape(docId)}"]`);
+  flash.textContent = "…";
+  const res = await fetch(`/review/${encodeURIComponent(docId)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ decision, reviewer: "web-ui", corrections: decision === "approve" ? corrections : {} }),
+  });
+  flash.textContent = res.ok ? "збережено" : `помилка ${res.status}`;
+  if (res.ok) setTimeout(load, 350);
+}
+
+document.addEventListener("click", e => {
+  const button = e.target.closest("button[data-action]");
+  if (button) decide(button.dataset.doc, button.dataset.action);
+});
+$("#refresh").addEventListener("click", load);
+$("#upload").addEventListener("click", async () => {
+  const input = $("#file");
+  if (!input.files.length) return;
+  const body = new FormData();
+  body.append("file", input.files[0]);
+  $("#stats").textContent = "обробка документа…";
+  const res = await fetch("/documents", { method: "POST", body });
+  if (!res.ok) {
+    const detail = await res.json().catch(() => ({}));
+    $("#stats").textContent = `помилка ${res.status}: ${detail.detail || ""}`;
+    return;
+  }
+  input.value = "";
+  load();
+});
+
+load();
+</script>
+</body>
+</html>

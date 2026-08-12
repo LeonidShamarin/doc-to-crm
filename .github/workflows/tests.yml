@@ -1,0 +1,28 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      # Кирилічний TTF потрібен тестам генератора датасету: у reportlab
+      # вбудовані лише латинські шрифти, а рахунки — українською.
+      - name: Install Cyrillic fonts
+        run: sudo apt-get update && sudo apt-get install -y fonts-dejavu-core
+
+      - run: pip install -r requirements.txt
+
+      # Ключа в CI немає навмисно: увесь набір проходить без мережі, LLM
+      # підмінений фейковим клієнтом. Якщо тест почне вимагати ключ — він
+      # тут же й упаде, і це правильна поведінка.
+      - run: pytest -q

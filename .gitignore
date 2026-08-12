@@ -1,0 +1,24 @@
+.env
+.test-logs/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+.vscode/
+.idea/
+
+# Робочий стан сервісу: черга review та ledger ідемпотентності. Похідне від
+# прогону, у репозиторії не потрібне (артефакти прогону лежать в output/).
+*.sqlite3
+state/
+
+# Тека, за якою стежить watcher, — це вхід користувача, не частина репозиторію.
+data/inbox/
+
+# Claude Code & MCP local configuration
+.claude/
+.claude.json
+.claude.json.backup
+CLAUDE.local.md
