@@ -1,0 +1,2944 @@
+[
+  {
+    "doc_id": "doc-001-a352e0bd",
+    "source_path": "data\\synthetic\\doc-001.pdf",
+    "content_hash": "a352e0bd69d4367e00262d7e9070d1153d0057b666a822abd9c9a58593e7d812",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:48:38+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Агросвіт-Плюс»",
+      "supplier_edrpou": "30123453",
+      "buyer_name": "ТОВ «Промінвест Груп»",
+      "buyer_edrpou": "31112222",
+      "invoice_number": "62/2026",
+      "invoice_date": "2026-03-11",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом…",
+          "quantity": 1.5,
+          "unit": "рейс",
+          "unit_price": 8914.4,
+          "amount": 13371.6
+        },
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 3.0,
+          "unit": "год",
+          "unit_price": 1013.04,
+          "amount": 3039.12
+        },
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 4.0,
+          "unit": "год",
+          "unit_price": 640.93,
+          "amount": 2563.72
+        },
+        {
+          "description": "Послуги зі складського зберігання, палето-міс…",
+          "quantity": 8.0,
+          "unit": "міс.",
+          "unit_price": 739.91,
+          "amount": 5919.28
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 1.5,
+          "unit": "міс.",
+          "unit_price": 14139.6,
+          "amount": 21209.4
+        }
+      ],
+      "subtotal": 46103.12,
+      "vat_rate": 20.0,
+      "vat_amount": 9220.62,
+      "total": 55323.74,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 2.7269253000013123,
+    "api_latency_s": 2.7267385000013746,
+    "input_tokens": 1100,
+    "output_tokens": 718,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-002-94486efd",
+    "source_path": "data\\synthetic\\doc-002.pdf",
+    "content_hash": "94486efd77a84662f77755ee5193af4c5ec2e6af2e6bd0c20aa4e110fbf0b61f",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:48:38+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "3205067350",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "923",
+      "invoice_date": "2025-12-29",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 24.0,
+          "unit": "шт.",
+          "unit_price": 1265.29,
+          "amount": 30366.96
+        },
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 19.0,
+          "unit": "уп.",
+          "unit_price": 56.25,
+          "amount": 1068.75
+        },
+        {
+          "description": "Папір офісний A4, 80 г/м2, 500 арк.",
+          "quantity": 2.0,
+          "unit": "пач.",
+          "unit_price": 188.94,
+          "amount": 377.88
+        }
+      ],
+      "subtotal": 31813.59,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 31813.59,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 14.105499900000723,
+    "api_latency_s": 2.103692599997885,
+    "input_tokens": 1100,
+    "output_tokens": 575,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-003-99c6a833",
+    "source_path": "data\\synthetic\\doc-003.pdf",
+    "content_hash": "99c6a833f8e5e22ca3e93021e0e0624c1e3f0d4e949250396e71d0a329dbb8ea",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:48:40+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26789019",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "СФ-4903",
+      "invoice_date": "2026-06-07",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 2.5,
+          "unit": "міс.",
+          "unit_price": 637.17,
+          "amount": 1592.92
+        },
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 12.0,
+          "unit": "год",
+          "unit_price": 940.09,
+          "amount": 11281.08
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ — Львів",
+          "quantity": 4.0,
+          "unit": "рейс",
+          "unit_price": 8663.38,
+          "amount": 34653.52
+        }
+      ],
+      "subtotal": 47527.52,
+      "vat_rate": 20.0,
+      "vat_amount": 9505.5,
+      "total": 57033.02,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.321361700000125,
+    "api_latency_s": 2.0406371999997646,
+    "input_tokens": 1100,
+    "output_tokens": 478,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-004-d16d0e22",
+    "source_path": "data\\synthetic\\doc-004.pdf",
+    "content_hash": "d16d0e227acca7c68274cb3b01bbe384508363287022f9238e47ad9252f31f4b",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:48:52+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Технолайн Україна»",
+      "supplier_edrpou": "41234569",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "СФ-1865",
+      "invoice_date": "2026-06-14",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Крісло офісне, сітка, підлокітники",
+          "quantity": 10.0,
+          "unit": "шт.",
+          "unit_price": 4785.22,
+          "amount": 47852.2
+        },
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 2.0,
+          "unit": "шт.",
+          "unit_price": 2140.72,
+          "amount": 4281.44
+        },
+        {
+          "description": "Кабель UTP cat.6, бухта 305 м",
+          "quantity": 25.0,
+          "unit": "бухт",
+          "unit_price": 3124.76,
+          "amount": 78119.0
+        },
+        {
+          "description": "Вода питна негазована, 19 л",
+          "quantity": 21.0,
+          "unit": "бут.",
+          "unit_price": 99.55,
+          "amount": 2090.55
+        }
+      ],
+      "subtotal": 132343.19,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 132343.19,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.17175590000261,
+    "api_latency_s": 2.2634748999989824,
+    "input_tokens": 1100,
+    "output_tokens": 635,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-005-9b71848b",
+    "source_path": "data\\synthetic\\doc-005.pdf",
+    "content_hash": "9b71848b08e29b07f5516c9debc9b1a8f57fce8c4e9638462c0103e4bcab674c",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:49:04+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Левчук О. С.",
+      "supplier_edrpou": "2049672860",
+      "buyer_name": "ТОВ «Промінвест Груп»",
+      "buyer_edrpou": "31112222",
+      "invoice_number": "СФ-8789",
+      "invoice_date": "2025-12-21",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 1.5,
+          "unit": "міс.",
+          "unit_price": 5626.63,
+          "amount": 8439.94
+        }
+      ],
+      "subtotal": 8439.94,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 8439.94,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.74853289999737,
+    "api_latency_s": 1.7696060999987822,
+    "input_tokens": 1100,
+    "output_tokens": 420,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-006-4bcba87d",
+    "source_path": "data\\synthetic\\doc-006.jpg",
+    "content_hash": "4bcba87d9e3c5488a52a38a7ea0e488a9d49e6fdd73820423777ed0bd740e422",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:49:16+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26789019",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "СФ-8729",
+      "invoice_date": "2026-01-26",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 12.0,
+          "unit": "од.",
+          "unit_price": 1970.34,
+          "amount": 23644.08
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 10.0,
+          "unit": "міс.",
+          "unit_price": 16337.47,
+          "amount": 163374.7
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ — Львів",
+          "quantity": 12.0,
+          "unit": "рейс",
+          "unit_price": 4581.55,
+          "amount": 54978.6
+        },
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 2.5,
+          "unit": "год",
+          "unit_price": 678.34,
+          "amount": 1695.85
+        },
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 2.0,
+          "unit": "год",
+          "unit_price": 1046.16,
+          "amount": 2092.32
+        },
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 4.0,
+          "unit": "міс.",
+          "unit_price": 893.14,
+          "amount": 3572.56
+        }
+      ],
+      "subtotal": 249358.11,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 249358.11,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 25.096772199998668,
+    "api_latency_s": 3.343964899999264,
+    "input_tokens": 1648,
+    "output_tokens": 792,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-007-97a09776",
+    "source_path": "data\\synthetic\\doc-007.pdf",
+    "content_hash": "97a09776ab2de87a4a0d49322aff511a1a6161465c1da75b0786e4d6b109a0f9",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:49:27+00:00",
+    "extraction": {
+      "doc_type": "акт",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26789019",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "54/2026",
+      "invoice_date": "2026-02-07",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 10.0,
+          "unit": "год",
+          "unit_price": 1356.26,
+          "amount": 13562.6
+        }
+      ],
+      "subtotal": 13642.6,
+      "vat_rate": 20.0,
+      "vat_amount": 2728.52,
+      "total": 16371.12,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [
+      {
+        "code": "subtotal_mismatch",
+        "severity": "error",
+        "field": "subtotal",
+        "message": "Сума позицій не дорівнює підсумку без ПДВ",
+        "expected": "13562.60",
+        "actual": "13642.60"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "subtotal_mismatch: Сума позицій не дорівнює підсумку без ПДВ"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 26.88711820000026,
+    "api_latency_s": 4.654229899999336,
+    "input_tokens": 1100,
+    "output_tokens": 429,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-008-c1f7e267",
+    "source_path": "data\\synthetic\\doc-008.jpg",
+    "content_hash": "c1f7e2670436a9b9666f3cf7a2b9eab6dfdf068ff3b6cf9bf0d65294b69085f3",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:49:41+00:00",
+    "extraction": {
+      "doc_type": "акт",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "30/2026",
+      "invoice_date": "2026-04-29",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 12.0,
+          "unit": "од",
+          "unit_price": 1440.58,
+          "amount": 17286.96
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 2.5,
+          "unit": "міс",
+          "unit_price": 17309.23,
+          "amount": 43273.07
+        },
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 12.0,
+          "unit": "год",
+          "unit_price": 1254.52,
+          "amount": 15054.24
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ ...",
+          "quantity": 8.0,
+          "unit": "рейс",
+          "unit_price": 7494.61,
+          "amount": 59956.88
+        }
+      ],
+      "subtotal": 135571.15,
+      "vat_rate": 7.0,
+      "vat_amount": 9490.98,
+      "total": 145061.13,
+      "confidence": {
+        "supplier_name": 0.95,
+        "supplier_edrpou": 0.95,
+        "buyer_name": 0.95,
+        "buyer_edrpou": 0.95,
+        "invoice_number": 0.95,
+        "invoice_date": 0.95,
+        "currency": 0.95,
+        "line_items": 0.9,
+        "subtotal": 0.95,
+        "vat_rate": 0.95,
+        "vat_amount": 0.95,
+        "total": 0.95
+      }
+    },
+    "issues": [
+      {
+        "code": "vat_mismatch",
+        "severity": "error",
+        "field": "vat_amount",
+        "message": "Сума ПДВ не відповідає ставці та базі оподаткування",
+        "expected": "9489.98",
+        "actual": "9490.98"
+      },
+      {
+        "code": "total_mismatch",
+        "severity": "error",
+        "field": "total",
+        "message": "Підсумок без ПДВ разом із ПДВ не дорівнює сумі до сплати",
+        "expected": "145062.13",
+        "actual": "145061.13"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "vat_mismatch: Сума ПДВ не відповідає ставці та базі оподаткування",
+      "total_mismatch: Підсумок без ПДВ разом із ПДВ не дорівнює сумі до сплати"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.131256100001337,
+    "api_latency_s": 3.46419109999988,
+    "input_tokens": 1648,
+    "output_tokens": 660,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-009-85f1743e",
+    "source_path": "data\\synthetic\\doc-009.jpg",
+    "content_hash": "85f1743e73faf34f0b4ea2452828fd4bc33e075658e5821178ac5292740a3a78",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:49:54+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Технолайн Україна»",
+      "supplier_edrpou": "41234569",
+      "buyer_name": "ТОВ «Промінвест Груп»",
+      "buyer_edrpou": "31112222",
+      "invoice_number": "53/2025",
+      "invoice_date": "2025-12-30",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 4.0,
+          "unit": "міс.",
+          "unit_price": 408.96,
+          "amount": 1635.84
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 4.0,
+          "unit": "міс.",
+          "unit_price": 8421.89,
+          "amount": 33687.56
+        }
+      ],
+      "subtotal": 35323.4,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 35323.4,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 21.69995950000157,
+    "api_latency_s": 2.337961000001087,
+    "input_tokens": 1660,
+    "output_tokens": 490,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-010-21c8327c",
+    "source_path": "data\\synthetic\\doc-010.pdf",
+    "content_hash": "21c8327cf417fb4b788b79d9de1a1aa5aa7502166c786f77f825938b4bad725c",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:50:05+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Агросвіт-Плюс»",
+      "supplier_edrpou": "30123453",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "СФ-3841",
+      "invoice_date": "2026-08-08",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 16.0,
+          "unit": "шт.",
+          "unit_price": 4254.6,
+          "amount": 68073.6
+        },
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 11.0,
+          "unit": "шт.",
+          "unit_price": 1175.8,
+          "amount": 12933.8
+        },
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 1.0,
+          "unit": "шт.",
+          "unit_price": 1594.0,
+          "amount": 1594.0
+        },
+        {
+          "description": "Папір офісний A4, 80 г/м2, 500 арк.",
+          "quantity": 10.0,
+          "unit": "пач.",
+          "unit_price": 180.08,
+          "amount": 1800.8
+        }
+      ],
+      "subtotal": 84402.2,
+      "vat_rate": 20.0,
+      "vat_amount": 16880.44,
+      "total": 101282.64,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.06656529999964,
+    "api_latency_s": 2.527072600001702,
+    "input_tokens": 1100,
+    "output_tokens": 656,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-011-a3ca452f",
+    "source_path": "data\\synthetic\\doc-011.jpg",
+    "content_hash": "a3ca452f6bddbbb49d74b2521f06634d0e604436e47f9597c8fba1697779257b",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:50:16+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Технолайн Україна»",
+      "supplier_edrpou": "41234569",
+      "buyer_name": "ТОВ «Промінвест Груп»",
+      "buyer_edrpou": "31112222",
+      "invoice_number": "76/2026",
+      "invoice_date": "2026-07-06",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Кабель UTP cat 6, бухта 305 м",
+          "quantity": 18.0,
+          "unit": "бухт",
+          "unit_price": 2573.9,
+          "amount": 46330.2
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 8.0,
+          "unit": "шт.",
+          "unit_price": 5521.95,
+          "amount": 44175.6
+        },
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 19.0,
+          "unit": "шт.",
+          "unit_price": 1417.66,
+          "amount": 26935.54
+        }
+      ],
+      "subtotal": 117441.34,
+      "vat_rate": 7.0,
+      "vat_amount": 8220.89,
+      "total": 125662.23,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.614241200000833,
+    "api_latency_s": 2.945751699997345,
+    "input_tokens": 1648,
+    "output_tokens": 574,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-012-fb14cf64",
+    "source_path": "data\\synthetic\\doc-012.jpg",
+    "content_hash": "fb14cf64376173fe2b54ef08eb04d49693bed77d921847da0adf024c08d4d313",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:50:28+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26789019",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "СФ-8671",
+      "invoice_date": "2026-02-13",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ — Львів",
+          "quantity": 1.0,
+          "unit": "рейс",
+          "unit_price": 5430.02,
+          "amount": 5430.02
+        }
+      ],
+      "subtotal": 5430.02,
+      "vat_rate": 7.0,
+      "vat_amount": 380.1,
+      "total": 5810.12,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.875847999999678,
+    "api_latency_s": 2.387894999999844,
+    "input_tokens": 1648,
+    "output_tokens": 429,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-013-a674107c",
+    "source_path": "data\\synthetic\\doc-013.pdf",
+    "content_hash": "a674107ca15555199c6032f8672bd747550b7c0b14ce278ede4ee53df8e87433",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:50:41+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "513",
+      "invoice_date": "2026-08-10",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 8.0,
+          "unit": "год",
+          "unit_price": 1270.5,
+          "amount": 10164.0
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 12.0,
+          "unit": "міс.",
+          "unit_price": 17222.16,
+          "amount": 206665.92
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом…",
+          "quantity": 1.0,
+          "unit": "рейс",
+          "unit_price": 9661.9,
+          "amount": 9661.9
+        },
+        {
+          "description": "Послуги зі складського зберігання, палето-міс…",
+          "quantity": 2.5,
+          "unit": "міс.",
+          "unit_price": 676.59,
+          "amount": 1691.48
+        },
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 12.0,
+          "unit": "год",
+          "unit_price": 1391.16,
+          "amount": 16693.92
+        }
+      ],
+      "subtotal": 244877.22,
+      "vat_rate": 7.0,
+      "vat_amount": 17141.41,
+      "total": 262018.63,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.07361579999997,
+    "api_latency_s": 2.9993281999995816,
+    "input_tokens": 1100,
+    "output_tokens": 717,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-014-0ebcd775",
+    "source_path": "data\\synthetic\\doc-014.jpg",
+    "content_hash": "0ebcd77584d4e7cd0a2ecf13fcfe2c81068a9b8929d768bd37394c16597e6056",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:50:52+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Левчук О. С.",
+      "supplier_edrpou": "2464684917",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "21/2026",
+      "invoice_date": "2026-03-06",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 18.0,
+          "unit": "уп.",
+          "unit_price": 45.09,
+          "amount": 811.62
+        },
+        {
+          "description": "Папір офісний А4, 80 г/м2, 500 арк.",
+          "quantity": 22.0,
+          "unit": "пач.",
+          "unit_price": 109.92,
+          "amount": 2418.24
+        }
+      ],
+      "subtotal": 3229.86,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 4229.86,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [
+      {
+        "code": "total_mismatch",
+        "severity": "error",
+        "field": "total",
+        "message": "Підсумок без ПДВ разом із ПДВ не дорівнює сумі до сплати",
+        "expected": "3229.86",
+        "actual": "4229.86"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "total_mismatch: Підсумок без ПДВ разом із ПДВ не дорівнює сумі до сплати"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.801937399999588,
+    "api_latency_s": 2.177872100000968,
+    "input_tokens": 1632,
+    "output_tokens": 343,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-015-1abc0d75",
+    "source_path": "data\\synthetic\\doc-015.pdf",
+    "content_hash": "1abc0d757bf1af769999e5289be9a4ad4c148a339d4e4ac1ce4dcddb28f5a2e3",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:51:05+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "СФ-3249",
+      "invoice_date": "2026-01-24",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ — Львів",
+          "quantity": 2.0,
+          "unit": "рейс",
+          "unit_price": 9897.67,
+          "amount": 19795.34
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 8.0,
+          "unit": "міс.",
+          "unit_price": 11965.93,
+          "amount": 95727.44
+        }
+      ],
+      "subtotal": 115522.78,
+      "vat_rate": 20.0,
+      "vat_amount": 23104.56,
+      "total": 138627.34,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.358754599998065,
+    "api_latency_s": 2.3540499999980966,
+    "input_tokens": 1100,
+    "output_tokens": 508,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-016-e0233389",
+    "source_path": "data\\synthetic\\doc-016.jpg",
+    "content_hash": "e0233389afb3fcef2698ff43817c632f3a0e8fead91554a2d400c6b45df6e524",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:51:16+00:00",
+    "extraction": {
+      "doc_type": "акт",
+      "supplier_name": "ТОВ «Агросвіт-Плюс»",
+      "supplier_edrpou": "30123453",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "12/2026",
+      "invoice_date": "2026-06-10",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 4.0,
+          "unit": "год",
+          "unit_price": 969.1,
+          "amount": 3876.4
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 2.5,
+          "unit": "од.",
+          "unit_price": 3773.62,
+          "amount": 9434.05
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 4.0,
+          "unit": "міс.",
+          "unit_price": 7321.78,
+          "amount": 29287.12
+        }
+      ],
+      "subtotal": 42597.57,
+      "vat_rate": 20.0,
+      "vat_amount": 8519.51,
+      "total": 51117.08,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 28.064789899999596,
+    "api_latency_s": 6.23131149999972,
+    "input_tokens": 1648,
+    "output_tokens": 568,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-017-94e42751",
+    "source_path": "data\\synthetic\\doc-017.pdf",
+    "content_hash": "94e42751adb5e57c06e500b574d656468837ce87b57fc87e7d8c9c1c5b4150bf",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:51:28+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "2059181251",
+      "buyer_name": "ТОВ «Промінвест Груп»",
+      "buyer_edrpou": "31112222",
+      "invoice_number": "209",
+      "invoice_date": "2026-02-26",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 12.0,
+          "unit": "год",
+          "unit_price": 1658.78,
+          "amount": 19905.36
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 3.0,
+          "unit": "од.",
+          "unit_price": 3810.28,
+          "amount": 11430.84
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 1.0,
+          "unit": "міс.",
+          "unit_price": 16895.23,
+          "amount": 16895.23
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ …",
+          "quantity": 4.0,
+          "unit": "рейс",
+          "unit_price": 5520.99,
+          "amount": 22083.96
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 3.0,
+          "unit": "міс.",
+          "unit_price": 11596.71,
+          "amount": 34790.13
+        }
+      ],
+      "subtotal": 105105.52,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 105105.52,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.536251400000765,
+    "api_latency_s": 2.8766727999973227,
+    "input_tokens": 1100,
+    "output_tokens": 709,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-018-20c3cfdd",
+    "source_path": "data\\synthetic\\doc-018.jpg",
+    "content_hash": "20c3cfdde4fb0ae577f33314dd05c3bf1a2db9be79b4d38047f9bd84b86ec71f",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:51:44+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "95/2026",
+      "invoice_date": "2026-04-18",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Папір офісний А4, 80 г/м2, 500 арк.",
+          "quantity": 9.0,
+          "unit": "пач.",
+          "unit_price": 107.67,
+          "amount": 969.03
+        },
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 24.0,
+          "unit": "шт.",
+          "unit_price": 2466.25,
+          "amount": 59190.0
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 17.0,
+          "unit": "шт.",
+          "unit_price": 4588.66,
+          "amount": 78007.22
+        }
+      ],
+      "subtotal": 138166.25,
+      "vat_rate": 20.0,
+      "vat_amount": 27633.25,
+      "total": 165799.5,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 20.558395199997904,
+    "api_latency_s": 2.7778675999979896,
+    "input_tokens": 1643,
+    "output_tokens": 584,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-019-a0bd41cb",
+    "source_path": "data\\synthetic\\doc-019.jpg",
+    "content_hash": "a0bd41cb7c6579af9beda320ad8b0078ad20922c6ad60f8e1c62f8568c144ac6",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:51:53+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26789019",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "493",
+      "invoice_date": "2025-12-18",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 7.0,
+          "unit": "уп.",
+          "unit_price": 25.62,
+          "amount": 179.34
+        },
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 6.0,
+          "unit": "шт.",
+          "unit_price": 2241.68,
+          "amount": 13450.08
+        },
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 8.0,
+          "unit": "шт.",
+          "unit_price": 1215.06,
+          "amount": 9720.48
+        },
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 11.0,
+          "unit": "шт.",
+          "unit_price": 2249.98,
+          "amount": 24749.78
+        },
+        {
+          "description": "Крісло офісне, сітка, підлокітники",
+          "quantity": 10.0,
+          "unit": "шт.",
+          "unit_price": 3591.59,
+          "amount": 35915.9
+        }
+      ],
+      "subtotal": 84015.58,
+      "vat_rate": 7.0,
+      "vat_amount": 5881.09,
+      "total": 89896.67,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.624343999999837,
+    "api_latency_s": 3.4951263000002655,
+    "input_tokens": 1653,
+    "output_tokens": 711,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-020-f0875cc6",
+    "source_path": "data\\synthetic\\doc-020.pdf",
+    "content_hash": "f0875cc64473cf9e909a67dddac2e27de49f9a2f3309f9831ca7fd41ef7311f1",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:52:05+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "2370245112",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "СФ-5209",
+      "invoice_date": "2026-06-23",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 16.0,
+          "unit": "шт.",
+          "unit_price": 2389.52,
+          "amount": 38232.32
+        }
+      ],
+      "subtotal": 38232.32,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 38232.32,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.391571000000113,
+    "api_latency_s": 2.16332980000152,
+    "input_tokens": 1100,
+    "output_tokens": 420,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-021-3cada820",
+    "source_path": "data\\synthetic\\doc-021.pdf",
+    "content_hash": "3cada8206bade7845c6483f3291861c7269786a14bfb2b705b913e2edeb7f13d",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:52:17+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "СФ-8389",
+      "invoice_date": "2026-06-03",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 2.0,
+          "unit": "міс.",
+          "unit_price": 9083.87,
+          "amount": 18167.74
+        },
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 12.0,
+          "unit": "год",
+          "unit_price": 1437.26,
+          "amount": 17247.12
+        },
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 3.0,
+          "unit": "міс.",
+          "unit_price": 466.63,
+          "amount": 1399.89
+        },
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 1.5,
+          "unit": "год",
+          "unit_price": 901.21,
+          "amount": 1351.82
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 2.5,
+          "unit": "од.",
+          "unit_price": 2253.62,
+          "amount": 5634.05
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 1.0,
+          "unit": "міс.",
+          "unit_price": 10256.19,
+          "amount": 10256.19
+        }
+      ],
+      "subtotal": 54056.81,
+      "vat_rate": 20.0,
+      "vat_amount": 9730.22,
+      "total": 63787.03,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [
+      {
+        "code": "vat_mismatch",
+        "severity": "error",
+        "field": "vat_amount",
+        "message": "Сума ПДВ не відповідає ставці та базі оподаткування",
+        "expected": "10811.36",
+        "actual": "9730.22"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "vat_mismatch: Сума ПДВ не відповідає ставці та базі оподаткування"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.56565010000122,
+    "api_latency_s": 4.042440500001248,
+    "input_tokens": 1100,
+    "output_tokens": 788,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-022-7b11f64d",
+    "source_path": "data\\synthetic\\doc-022.pdf",
+    "content_hash": "7b11f64d553148263924d400063c1df128a2ab3532c449c5687ab15455a8205f",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:52:28+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "2430802114",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "18/2026",
+      "invoice_date": "2026-07-30",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 25.0,
+          "unit": "шт.",
+          "unit_price": 7248.37,
+          "amount": 181209.25
+        },
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 1.0,
+          "unit": "шт.",
+          "unit_price": 1117.78,
+          "amount": 1117.78
+        },
+        {
+          "description": "Стіл офісний 1400x700, ЛДСП",
+          "quantity": 15.0,
+          "unit": "шт.",
+          "unit_price": 4529.99,
+          "amount": 67949.85
+        }
+      ],
+      "subtotal": 250276.88,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 250276.88,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.18018680000023,
+    "api_latency_s": 2.3252195000022766,
+    "input_tokens": 1100,
+    "output_tokens": 553,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-023-2e2e28ab",
+    "source_path": "data\\synthetic\\doc-023.jpg",
+    "content_hash": "2e2e28ab98efc080a82cfd580f1da51cd3110b5ae832f829f294095f219046c3",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:52:42+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Логістик Партнер»",
+      "supplier_edrpou": "34556783",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "СФ-6367",
+      "invoice_date": "2026-03-10",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Крісло офісне, сітка, підлокітники",
+          "quantity": 22.0,
+          "unit": "шт.",
+          "unit_price": 4008.63,
+          "amount": 88189.86
+        }
+      ],
+      "subtotal": 88189.86,
+      "vat_rate": 20.0,
+      "vat_amount": 17637.97,
+      "total": 105827.83,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 22.29890869999872,
+    "api_latency_s": 2.322965400002431,
+    "input_tokens": 1632,
+    "output_tokens": 431,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-024-5503b031",
+    "source_path": "data\\synthetic\\doc-024.pdf",
+    "content_hash": "5503b03123bc90f3adeda7929e34633e6a47c47a332de80e362b89333c99095b",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:52:52+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "14/2026",
+      "invoice_date": "2026-04-13",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 4.0,
+          "unit": "год",
+          "unit_price": 808.65,
+          "amount": 3234.6
+        }
+      ],
+      "subtotal": 3234.6,
+      "vat_rate": 20.0,
+      "vat_amount": 646.92,
+      "total": 3881.52,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.844438799998898,
+    "api_latency_s": 2.1434361999999965,
+    "input_tokens": 1100,
+    "output_tokens": 424,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-025-7961e300",
+    "source_path": "data\\synthetic\\doc-025.pdf",
+    "content_hash": "7961e3007cf42a54ba9aee5bdc47691ac37179e71efcae9d5907c0e60a51b7f8",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:53:04+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "3340942577",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "СФ-7479",
+      "invoice_date": "2026-05-14",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Стіл офісний 1400x700, ЛДСП",
+          "quantity": 18.0,
+          "unit": "шт.",
+          "unit_price": 3937.2,
+          "amount": 70869.6
+        },
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 15.0,
+          "unit": "шт.",
+          "unit_price": 2219.12,
+          "amount": 33286.8
+        }
+      ],
+      "subtotal": 104156.4,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 104156.4,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.87891650000165,
+    "api_latency_s": 2.176103099998727,
+    "input_tokens": 1100,
+    "output_tokens": 500,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-026-8bd1988e",
+    "source_path": "data\\synthetic\\doc-026.pdf",
+    "content_hash": "8bd1988e0122a0220c1654381a3a16cffb1498212944417caff18b8eb7849b95",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:53:16+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Логістик Партнер»",
+      "supplier_edrpou": "34556783",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "СФ-9987",
+      "invoice_date": "2026-06-10",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 9.0,
+          "unit": "шт.",
+          "unit_price": 1242.24,
+          "amount": 11180.16
+        },
+        {
+          "description": "Папір офісний A4, 80 г/м2, 500 арк.",
+          "quantity": 23.0,
+          "unit": "пач.",
+          "unit_price": 129.05,
+          "amount": 2968.15
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 7.0,
+          "unit": "шт.",
+          "unit_price": 4608.19,
+          "amount": 32257.33
+        }
+      ],
+      "subtotal": 46405.64,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 46405.64,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.482599599999958,
+    "api_latency_s": 2.600071400000161,
+    "input_tokens": 1100,
+    "output_tokens": 576,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-027-76c66f91",
+    "source_path": "data\\synthetic\\doc-027.pdf",
+    "content_hash": "76c66f912c4a30c11eaee17accdcacbdfecf34cddf79cedb05fdf64e278169b8",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:53:28+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Логістик Партнер»",
+      "supplier_edrpou": "34556783",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "14/2026",
+      "invoice_date": "2026-08-26",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 12.0,
+          "unit": "міс.",
+          "unit_price": 14929.63,
+          "amount": 179155.56
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 4.0,
+          "unit": "од.",
+          "unit_price": 3200.01,
+          "amount": 12800.04
+        },
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 12.0,
+          "unit": "год",
+          "unit_price": 1675.03,
+          "amount": 20100.36
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом Київ — Львів",
+          "quantity": 1.5,
+          "unit": "рейс",
+          "unit_price": 7688.14,
+          "amount": 11532.21
+        }
+      ],
+      "subtotal": 223588.17,
+      "vat_rate": 20.0,
+      "vat_amount": 44717.63,
+      "total": 268305.8,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [
+      {
+        "code": "date_in_future",
+        "severity": "error",
+        "field": "invoice_date",
+        "message": "Дата документа — у майбутньому",
+        "expected": "не пізніше 2026-08-12",
+        "actual": "2026-08-26"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "date_in_future: Дата документа — у майбутньому"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.300941299999977,
+    "api_latency_s": 2.4588140999985626,
+    "input_tokens": 1100,
+    "output_tokens": 654,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-028-4af55b89",
+    "source_path": "data\\synthetic\\doc-028.jpg",
+    "content_hash": "4af55b8955aed78b474c3c9de5513091a794ed7283662338b2533dfc872982ad",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:53:40+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "3895301592",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "64/2026",
+      "invoice_date": "2026-03-11",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Стіл офісний 1400х700, ЛДСП",
+          "quantity": 9.0,
+          "unit": "шт.",
+          "unit_price": 4135.09,
+          "amount": 37215.81
+        },
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 3.0,
+          "unit": "шт.",
+          "unit_price": 2147.96,
+          "amount": 6443.88
+        },
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 4.0,
+          "unit": "уп.",
+          "unit_price": 45.91,
+          "amount": 183.64
+        },
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 4.0,
+          "unit": "шт.",
+          "unit_price": 932.84,
+          "amount": 3731.36
+        },
+        {
+          "description": "Вода питна негазована, 19 л",
+          "quantity": 25.0,
+          "unit": "бут.",
+          "unit_price": 138.25,
+          "amount": 3456.25
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 7.0,
+          "unit": "шт.",
+          "unit_price": 4604.06,
+          "amount": 32228.42
+        }
+      ],
+      "subtotal": 83259.36,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 83259.36,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.39946340000097,
+    "api_latency_s": 2.992103999997198,
+    "input_tokens": 1656,
+    "output_tokens": 785,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-029-74a0224a",
+    "source_path": "data\\synthetic\\doc-029.jpg",
+    "content_hash": "74a0224a046236391c72c1a1a6ba564232ad97e20aaf09eb938023c510202f03",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:53:52+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "91/2026",
+      "invoice_date": "2026-04-17",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 15.0,
+          "unit": "шт",
+          "unit_price": 980.85,
+          "amount": 14712.75
+        },
+        {
+          "description": "Вода питна негазована, 19 л",
+          "quantity": 17.0,
+          "unit": "бут",
+          "unit_price": 112.05,
+          "amount": 1904.85
+        }
+      ],
+      "subtotal": 16617.6,
+      "vat_rate": 20.0,
+      "vat_amount": 3323.52,
+      "total": 19941.12,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.72803660000136,
+    "api_latency_s": 2.1789567999985593,
+    "input_tokens": 1670,
+    "output_tokens": 502,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-030-9cf512d4",
+    "source_path": "data\\synthetic\\doc-030.pdf",
+    "content_hash": "9cf512d46eb27fe3daa1f237af7361ec4cd735958667a40185e88d821a5eb88a",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:54:05+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ПП «Будмайстер-Захід»",
+      "supplier_edrpou": "22345679",
+      "buyer_name": "ТОВ «Промінвест Груп»",
+      "buyer_edrpou": "31112222",
+      "invoice_number": "84",
+      "invoice_date": "2026-03-28",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Папір офісний A4, 80 г/м2, 500 арк.",
+          "quantity": 12.0,
+          "unit": "пач.",
+          "unit_price": 129.81,
+          "amount": 1557.72
+        },
+        {
+          "description": "Вода питна негазована, 19 л",
+          "quantity": 19.0,
+          "unit": "бут.",
+          "unit_price": 89.03,
+          "amount": 1691.57
+        },
+        {
+          "description": "Стіл офісний 1400x700, ЛДСП",
+          "quantity": 11.0,
+          "unit": "шт.",
+          "unit_price": 5233.43,
+          "amount": 57567.73
+        }
+      ],
+      "subtotal": 60817.02,
+      "vat_rate": 20.0,
+      "vat_amount": 12163.4,
+      "total": 72980.42,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.41706399999748,
+    "api_latency_s": 2.3978843000004417,
+    "input_tokens": 1100,
+    "output_tokens": 579,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-031-33cd359f",
+    "source_path": "data\\synthetic\\doc-031.jpg",
+    "content_hash": "33cd359fe37577faa45bce109153c76f1a513d57c08256f7d01a895109245f99",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:54:16+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Логістик Партнер»",
+      "supplier_edrpou": "34556783",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "СФ-1574",
+      "invoice_date": "2025-12-28",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 12.0,
+          "unit": "шт.",
+          "unit_price": 1617.68,
+          "amount": 19412.16
+        },
+        {
+          "description": "Картридж лазерний HP CF259А (сумісний)",
+          "quantity": 24.0,
+          "unit": "шт.",
+          "unit_price": 931.37,
+          "amount": 22352.88
+        },
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 13.0,
+          "unit": "шт.",
+          "unit_price": 1809.51,
+          "amount": 23523.63
+        },
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 1.0,
+          "unit": "уп.",
+          "unit_price": 28.87,
+          "amount": 28.87
+        }
+      ],
+      "subtotal": 65317.54,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 65317.54,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.446736600002623,
+    "api_latency_s": 2.619600599999103,
+    "input_tokens": 1653,
+    "output_tokens": 636,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-032-57ae1c78",
+    "source_path": "data\\synthetic\\doc-032.pdf",
+    "content_hash": "57ae1c78a5d15a18a6f9f7744926d239e6fde58ad9f518719a5a9d4b500862e8",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:54:28+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "2237359957",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "49/2026",
+      "invoice_date": "2026-04-15",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 16.0,
+          "unit": "шт.",
+          "unit_price": 2203.29,
+          "amount": 35252.64
+        },
+        {
+          "description": "Крісло офісне, сітка, підлокітники",
+          "quantity": 25.0,
+          "unit": "шт.",
+          "unit_price": 6543.11,
+          "amount": 163577.75
+        },
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 23.0,
+          "unit": "уп.",
+          "unit_price": 44.49,
+          "amount": 1023.27
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 9.0,
+          "unit": "шт.",
+          "unit_price": 6552.06,
+          "amount": 58968.54
+        },
+        {
+          "description": "Папір офісний A4, 80 г/м2, 500 арк.",
+          "quantity": 20.0,
+          "unit": "пач.",
+          "unit_price": 105.28,
+          "amount": 2105.6
+        },
+        {
+          "description": "Кабель UTP cat.6, бухта 305 м",
+          "quantity": 17.0,
+          "unit": "бухт",
+          "unit_price": 2590.05,
+          "amount": 44030.85
+        }
+      ],
+      "subtotal": 304958.65,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 304958.65,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.420769300002576,
+    "api_latency_s": 2.8173798999996507,
+    "input_tokens": 1100,
+    "output_tokens": 800,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-033-3ffe44c9",
+    "source_path": "data\\synthetic\\doc-033.jpg",
+    "content_hash": "3ffe44c99255b7b296a2d13aedb06ac9fde438de89c2a5c284b8ff0f79e1a278",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:54:40+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Агро світ-Плюс»",
+      "supplier_edrpou": "30123453",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "38/2026",
+      "invoice_date": "2026-07-29",
+      "currency": "USD",
+      "line_items": [
+        {
+          "description": "Картридж лазерний HP CF259A (сумісний)",
+          "quantity": 7.0,
+          "unit": "шт.",
+          "unit_price": 1311.37,
+          "amount": 9179.59
+        },
+        {
+          "description": "Крісло офісне, сітка, підлокітники",
+          "quantity": 18.0,
+          "unit": "шт.",
+          "unit_price": 4639.26,
+          "amount": 83506.68
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 24.0,
+          "unit": "шт.",
+          "unit_price": 6800.72,
+          "amount": 163217.28
+        },
+        {
+          "description": "Папір офісний А4, 80 г/м2, 500 арк.",
+          "quantity": 15.0,
+          "unit": "пач.",
+          "unit_price": 143.35,
+          "amount": 2150.25
+        },
+        {
+          "description": "Тонер-туба Kyocera TK-1170",
+          "quantity": 16.0,
+          "unit": "шт.",
+          "unit_price": 2503.45,
+          "amount": 40055.2
+        }
+      ],
+      "subtotal": 298109.0,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 298109.0,
+      "confidence": {
+        "supplier_name": 0.95,
+        "supplier_edrpou": 0.95,
+        "buyer_name": 0.95,
+        "buyer_edrpou": 0.95,
+        "invoice_number": 0.95,
+        "invoice_date": 0.95,
+        "currency": 0.95,
+        "line_items": 0.95,
+        "subtotal": 0.95,
+        "vat_rate": 0.95,
+        "vat_amount": 0.95,
+        "total": 0.95
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.293332699999155,
+    "api_latency_s": 2.9124797000004037,
+    "input_tokens": 1634,
+    "output_tokens": 743,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-034-36cfb3e6",
+    "source_path": "data\\synthetic\\doc-034.pdf",
+    "content_hash": "36cfb3e696184c8ef7afee25ffb08483016b2e3a578184b839e78a2e906a7215",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:54:53+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "2639735480",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "630",
+      "invoice_date": "2026-02-09",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 23.0,
+          "unit": "шт.",
+          "unit_price": 2058.71,
+          "amount": 47350.33
+        },
+        {
+          "description": "Папір офісний A4, 80 г/м2, 500 арк.",
+          "quantity": 19.0,
+          "unit": "пач.",
+          "unit_price": 130.8,
+          "amount": 2485.2
+        }
+      ],
+      "subtotal": 49835.53,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 49835.53,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [
+      {
+        "code": "tax_code_checksum",
+        "severity": "error",
+        "field": "supplier_edrpou",
+        "message": "Код постачальника не проходить перевірку контрольної цифри — найімовірніше, одна цифра прочитана невірно",
+        "expected": null,
+        "actual": "2639735480"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "tax_code_checksum: Код постачальника не проходить перевірку контрольної цифри — найімовірніше, одна цифра прочитана невірно"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.686953500000527,
+    "api_latency_s": 2.5014756999989913,
+    "input_tokens": 1100,
+    "output_tokens": 468,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-035-f1fd133d",
+    "source_path": "data\\synthetic\\doc-035.jpg",
+    "content_hash": "f1fd133dcc4bf751dc2b28a95dc7db15ce00fe48c092d5a1aad53b8382155e08",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:55:05+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Медіа Контент Груп»",
+      "supplier_edrpou": "39876548",
+      "buyer_name": "ТОВ «Сігма Трейд»",
+      "buyer_edrpou": "42223338",
+      "invoice_number": "500",
+      "invoice_date": "2026-03-26",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 4.0,
+          "unit": "од.",
+          "unit_price": 3609.38,
+          "amount": 14437.52
+        },
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 10.0,
+          "unit": "міс.",
+          "unit_price": 464.69,
+          "amount": 4646.9
+        }
+      ],
+      "subtotal": 19084.42,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 19084.42,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 23.65626920000068,
+    "api_latency_s": 2.556274399998074,
+    "input_tokens": 1670,
+    "output_tokens": 491,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-036-94a95321",
+    "source_path": "data\\synthetic\\doc-036.pdf",
+    "content_hash": "94a953214feb4b14e91a2ca1d79297bafdf2e3ad377ec8c8d855fb11b3212b79",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:55:16+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "3319098108",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "627",
+      "invoice_date": "2026-03-11",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 10.0,
+          "unit": "год",
+          "unit_price": 798.35,
+          "amount": 7983.5
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 2.0,
+          "unit": "міс.",
+          "unit_price": 8398.72,
+          "amount": 16797.44
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 4.0,
+          "unit": "од.",
+          "unit_price": 3831.81,
+          "amount": 15327.24
+        },
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 2.5,
+          "unit": "міс.",
+          "unit_price": 441.76,
+          "amount": 1104.4
+        }
+      ],
+      "subtotal": 41212.58,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 41212.58,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.040659599999344,
+    "api_latency_s": 2.525508799997624,
+    "input_tokens": 1100,
+    "output_tokens": 635,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-037-29fc6aa1",
+    "source_path": "data\\synthetic\\doc-037.pdf",
+    "content_hash": "29fc6aa123debe7ad52202a7b3fefa48505b22d677d59031fb74377e39d47307",
+    "mime_type": "application/pdf",
+    "received_at": "2026-08-12T14:55:28+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26789019",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "СФ-1762",
+      "invoice_date": "2026-07-17",
+      "currency": "EUR",
+      "line_items": [
+        {
+          "description": "Послуги зі складського зберігання, палето-міс…",
+          "quantity": 2.0,
+          "unit": "міс.",
+          "unit_price": 835.15,
+          "amount": 1670.3
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 8.0,
+          "unit": "міс.",
+          "unit_price": 11801.78,
+          "amount": 94414.24
+        },
+        {
+          "description": "Транспортно-експедиційні послуги за маршрутом…",
+          "quantity": 2.0,
+          "unit": "рейс",
+          "unit_price": 7305.2,
+          "amount": 14610.4
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 1.5,
+          "unit": "од.",
+          "unit_price": 1871.95,
+          "amount": 2807.93
+        }
+      ],
+      "subtotal": 113502.87,
+      "vat_rate": 20.0,
+      "vat_amount": 22700.57,
+      "total": 136203.44,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.050412900000083,
+    "api_latency_s": 2.599954900000739,
+    "input_tokens": 1100,
+    "output_tokens": 654,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-038-a2ab10fc",
+    "source_path": "data\\synthetic\\doc-038.jpg",
+    "content_hash": "a2ab10fc24b09ef6fbe16e8670f2d50aa2d9597a7b9e4ce976d472f99d577ce3",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:55:40+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко І. М.",
+      "supplier_edrpou": "2822359389",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "283",
+      "invoice_date": "2026-05-31",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 1.5,
+          "unit": "міс",
+          "unit_price": 759.56,
+          "amount": 1139.34
+        }
+      ],
+      "subtotal": 1139.34,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 1139.34,
+      "confidence": {
+        "supplier_name": 1.0,
+        "supplier_edrpou": 1.0,
+        "buyer_name": 1.0,
+        "buyer_edrpou": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "currency": 1.0,
+        "line_items": 1.0,
+        "subtotal": 1.0,
+        "vat_rate": 1.0,
+        "vat_amount": 1.0,
+        "total": 1.0
+      }
+    },
+    "issues": [],
+    "status": "auto_ok",
+    "review_reasons": [],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.18178160000025,
+    "api_latency_s": 2.698908099999244,
+    "input_tokens": 1641,
+    "output_tokens": 419,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-039-07bdbd05",
+    "source_path": "data\\synthetic\\doc-039.jpg",
+    "content_hash": "07bdbd05f104c50af6099a92adf6079ef181e10a975535a06d74cf0fd3f75b61",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:55:52+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ТОВ «Енерго Сервіс Плюс»",
+      "supplier_edrpou": "26780019",
+      "buyer_name": "ТОВ «Карпат Фуд»",
+      "buyer_edrpou": "23334442",
+      "invoice_number": "СФ-5805",
+      "invoice_date": "2026-07-24",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Послуги зі складського зберігання, палето-місце",
+          "quantity": 2.0,
+          "unit": "міс.",
+          "unit_price": 354.45,
+          "amount": 708.9
+        },
+        {
+          "description": "Послуги з розробки та підтримки вебсайту",
+          "quantity": 10.0,
+          "unit": "год.",
+          "unit_price": 909.61,
+          "amount": 9096.1
+        },
+        {
+          "description": "Рекламні послуги: розміщення банерів",
+          "quantity": 12.0,
+          "unit": "міс.",
+          "unit_price": 12331.5,
+          "amount": 147978.0
+        },
+        {
+          "description": "Послуги з прибирання приміщень",
+          "quantity": 12.0,
+          "unit": "міс.",
+          "unit_price": 10234.72,
+          "amount": 122816.64
+        },
+        {
+          "description": "Консультаційні послуги з автоматизації обліку",
+          "quantity": 4.0,
+          "unit": "год.",
+          "unit_price": 2511.81,
+          "amount": 10047.28
+        },
+        {
+          "description": "Технічне обслуговування обладнання",
+          "quantity": 1.5,
+          "unit": "год.",
+          "unit_price": 1275.74,
+          "amount": 1913.61
+        }
+      ],
+      "subtotal": 292561.53,
+      "vat_rate": 20.0,
+      "vat_amount": 58512.23,
+      "total": 351073.76,
+      "confidence": {
+        "supplier_name": 0.95,
+        "supplier_edrpou": 0.95,
+        "buyer_name": 0.95,
+        "buyer_edrpou": 0.95,
+        "invoice_number": 0.95,
+        "invoice_date": 0.95,
+        "currency": 0.95,
+        "line_items": 0.85,
+        "subtotal": 0.9,
+        "vat_rate": 0.95,
+        "vat_amount": 0.9,
+        "total": 0.95
+      }
+    },
+    "issues": [
+      {
+        "code": "tax_code_checksum",
+        "severity": "error",
+        "field": "supplier_edrpou",
+        "message": "Код постачальника не проходить перевірку контрольної цифри — найімовірніше, одна цифра прочитана невірно",
+        "expected": null,
+        "actual": "26780019"
+      },
+      {
+        "code": "line_amount_mismatch",
+        "severity": "error",
+        "field": "line_items[5].amount",
+        "message": "Рядок 5: кількість × ціна не дорівнює сумі рядка",
+        "expected": "10047.24",
+        "actual": "10047.28"
+      },
+      {
+        "code": "subtotal_mismatch",
+        "severity": "error",
+        "field": "subtotal",
+        "message": "Сума позицій не дорівнює підсумку без ПДВ",
+        "expected": "292560.53",
+        "actual": "292561.53"
+      },
+      {
+        "code": "vat_mismatch",
+        "severity": "error",
+        "field": "vat_amount",
+        "message": "Сума ПДВ не відповідає ставці та базі оподаткування",
+        "expected": "58512.31",
+        "actual": "58512.23"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "tax_code_checksum: Код постачальника не проходить перевірку контрольної цифри — найімовірніше, одна цифра прочитана невірно",
+      "line_amount_mismatch: Рядок 5: кількість × ціна не дорівнює сумі рядка",
+      "subtotal_mismatch: Сума позицій не дорівнює підсумку без ПДВ",
+      "vat_mismatch: Сума ПДВ не відповідає ставці та базі оподаткування"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.688649600000645,
+    "api_latency_s": 3.275027299998328,
+    "input_tokens": 1648,
+    "output_tokens": 803,
+    "duplicate_of": null
+  },
+  {
+    "doc_id": "doc-040-d51321a8",
+    "source_path": "data\\synthetic\\doc-040.jpg",
+    "content_hash": "d51321a8404d5bf22b95ef83983957de2bf1e0a78d00b498a0fc5b4c403c2aef",
+    "mime_type": "image/jpeg",
+    "received_at": "2026-08-12T14:56:05+00:00",
+    "extraction": {
+      "doc_type": "рахунок",
+      "supplier_name": "ФОП Кравченко I. М.",
+      "supplier_edrpou": "3379040931",
+      "buyer_name": "ТОВ «Дніпро Ритейл»",
+      "buyer_edrpou": "34445554",
+      "invoice_number": "6/2026",
+      "invoice_date": "2026-03-15",
+      "currency": "UAH",
+      "line_items": [
+        {
+          "description": "Вода питна негазована, 19 л",
+          "quantity": 15.0,
+          "unit": "бут.",
+          "unit_price": 89.99,
+          "amount": 1349.85
+        },
+        {
+          "description": "Монітор 24\", IPS, 75 Гц",
+          "quantity": 10.0,
+          "unit": "шт",
+          "unit_price": 7279.04,
+          "amount": 72790.4
+        },
+        {
+          "description": "Клавіатура механічна, USB",
+          "quantity": 3.0,
+          "unit": "шт",
+          "unit_price": 1214.0,
+          "amount": 3642.0
+        },
+        {
+          "description": "Сіл офісний 1400х700, ЛДСП",
+          "quantity": 12.0,
+          "unit": "шт",
+          "unit_price": 3465.0,
+          "amount": 41580.0
+        },
+        {
+          "description": "Серветки паперові, 100 шт.",
+          "quantity": 9.0,
+          "unit": "уп.",
+          "unit_price": 59.79,
+          "amount": 538.11
+        },
+        {
+          "description": "Крісло офісне, сітка, підлокітники",
+          "quantity": 24.0,
+          "unit": "шт",
+          "unit_price": 3263.32,
+          "amount": 78319.68
+        }
+      ],
+      "subtotal": 198221.04,
+      "vat_rate": 0.0,
+      "vat_amount": 0.0,
+      "total": 198221.04,
+      "confidence": {
+        "supplier_name": 0.95,
+        "supplier_edrpou": 0.95,
+        "buyer_name": 0.95,
+        "buyer_edrpou": 0.95,
+        "invoice_number": 0.95,
+        "invoice_date": 0.95,
+        "currency": 0.95,
+        "line_items": 0.9,
+        "subtotal": 0.95,
+        "vat_rate": 0.95,
+        "vat_amount": 0.95,
+        "total": 0.95
+      }
+    },
+    "issues": [
+      {
+        "code": "subtotal_mismatch",
+        "severity": "error",
+        "field": "subtotal",
+        "message": "Сума позицій не дорівнює підсумку без ПДВ",
+        "expected": "198220.04",
+        "actual": "198221.04"
+      }
+    ],
+    "status": "needs_review",
+    "review_reasons": [
+      "subtotal_mismatch: Сума позицій не дорівнює підсумку без ПДВ"
+    ],
+    "processing_error": null,
+    "retries_used": 0,
+    "latency_s": 24.32595129999754,
+    "api_latency_s": 3.0174477999971714,
+    "input_tokens": 1656,
+    "output_tokens": 794,
+    "duplicate_of": null
+  }
+]

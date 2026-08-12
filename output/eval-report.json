@@ -1,0 +1,1944 @@
+{
+  "documents": 40,
+  "fully_correct": 0.9,
+  "field_accuracy": {
+    "supplier_name": 0.95,
+    "supplier_edrpou": 0.975,
+    "buyer_name": 1.0,
+    "buyer_edrpou": 1.0,
+    "invoice_number": 1.0,
+    "invoice_date": 1.0,
+    "currency": 1.0,
+    "subtotal": 0.95,
+    "vat_rate": 1.0,
+    "vat_amount": 0.975,
+    "total": 0.95,
+    "line_items": 0.95
+  },
+  "line_amounts_matched": 0.9776,
+  "by_kind": {
+    "pdf": {
+      "documents": 22,
+      "fully_correct": 1.0,
+      "total_field_accuracy": 1.0,
+      "routing": {
+        "caught": 4,
+        "missed": 0,
+        "false_alarms": 0,
+        "clean_auto": 18,
+        "recall": 1.0,
+        "precision": 1.0,
+        "auto_rate": 0.8182,
+        "review_rate": 0.1818
+      }
+    },
+    "photo": {
+      "documents": 8,
+      "fully_correct": 1.0,
+      "total_field_accuracy": 1.0,
+      "routing": {
+        "caught": 1,
+        "missed": 0,
+        "false_alarms": 0,
+        "clean_auto": 7,
+        "recall": 1.0,
+        "precision": 1.0,
+        "auto_rate": 0.875,
+        "review_rate": 0.125
+      }
+    },
+    "photo_hard": {
+      "documents": 10,
+      "fully_correct": 0.6,
+      "total_field_accuracy": 0.8,
+      "routing": {
+        "caught": 3,
+        "missed": 1,
+        "false_alarms": 0,
+        "clean_auto": 6,
+        "recall": 0.75,
+        "precision": 1.0,
+        "auto_rate": 0.7,
+        "review_rate": 0.3
+      }
+    }
+  },
+  "routing": {
+    "валідація + впевненість": {
+      "caught": 8,
+      "missed": 1,
+      "false_alarms": 0,
+      "clean_auto": 31,
+      "recall": 0.8889,
+      "precision": 1.0,
+      "auto_rate": 0.8,
+      "review_rate": 0.2
+    },
+    "тільки впевненість": {
+      "caught": 0,
+      "missed": 9,
+      "false_alarms": 0,
+      "clean_auto": 31,
+      "recall": 0.0,
+      "precision": 1.0,
+      "auto_rate": 1.0,
+      "review_rate": 0.0
+    },
+    "тільки валідація": {
+      "caught": 8,
+      "missed": 1,
+      "false_alarms": 0,
+      "clean_auto": 31,
+      "recall": 0.8889,
+      "precision": 1.0,
+      "auto_rate": 0.8,
+      "review_rate": 0.2
+    }
+  },
+  "planted_issues": {
+    "total": 5,
+    "caught": 5,
+    "detail": {
+      "doc-007-97a09776": {
+        "planted": "subtotal_mismatch",
+        "caught": true
+      },
+      "doc-014-0ebcd775": {
+        "planted": "total_mismatch",
+        "caught": true
+      },
+      "doc-021-3cada820": {
+        "planted": "vat_mismatch",
+        "caught": true
+      },
+      "doc-027-76c66f91": {
+        "planted": "date_in_future",
+        "caught": true
+      },
+      "doc-034-36cfb3e6": {
+        "planted": "tax_code_checksum",
+        "caught": true
+      }
+    }
+  },
+  "latency_s": {
+    "mean": 2.77,
+    "p50": 2.6,
+    "p95": 4.65
+  },
+  "wall_clock_s": {
+    "mean": 23.27,
+    "p50": 24.07
+  },
+  "confidence": {
+    "mean_min_confidence": 0.99,
+    "docs_below_threshold": 0,
+    "docs_at_1.0": 36,
+    "lowest": 0.85
+  },
+  "tokens": {
+    "input": 53888,
+    "output": 23651,
+    "per_doc_input": 1347,
+    "per_doc_output": 591
+  },
+  "cost_usd": {
+    "run": 0.0148,
+    "per_1000_docs": 0.37
+  },
+  "roi": {
+    "manual_seconds_per_doc": 180.0,
+    "review_seconds_per_doc": 45.0,
+    "review_rate": 0.2,
+    "human_hours_per_1000_manual": 50.0,
+    "human_hours_per_1000_auto": 2.5,
+    "saved_hours_per_1000": 47.5
+  },
+  "config": {
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0.0,
+    "rpm": 5,
+    "max_repair_retries": 1,
+    "min_field_confidence": 0.75,
+    "validation_enabled": true,
+    "amount_tolerance": 0.02,
+    "input_price_per_mtok": 0.1,
+    "output_price_per_mtok": 0.4
+  },
+  "records": [
+    {
+      "doc_id": "doc-001-a352e0bd",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 5,
+          "actual_count": 5,
+          "amounts_matched": 5,
+          "amounts_total": 5,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.7267385000013746,
+      "wall_clock_s": 2.7269253000013123,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 718,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-002-94486efd",
+      "kind": "pdf",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.103692599997885,
+      "wall_clock_s": 14.105499900000723,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 575,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-003-99c6a833",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.0406371999997646,
+      "wall_clock_s": 23.321361700000125,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 478,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-004-d16d0e22",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.2634748999989824,
+      "wall_clock_s": 24.17175590000261,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 635,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-005-9b71848b",
+      "kind": "pdf",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 1.7696060999987822,
+      "wall_clock_s": 23.74853289999737,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 420,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-006-4bcba87d",
+      "kind": "photo",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 6,
+          "actual_count": 6,
+          "amounts_matched": 6,
+          "amounts_total": 6,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 3.343964899999264,
+      "wall_clock_s": 25.096772199998668,
+      "min_confidence": 1.0,
+      "input_tokens": 1648,
+      "output_tokens": 792,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-007-97a09776",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": "subtotal_mismatch",
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 4.654229899999336,
+      "wall_clock_s": 26.88711820000026,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 429,
+      "issue_codes": [
+        "subtotal_mismatch"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "subtotal_mismatch"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-008-c1f7e267",
+      "kind": "photo_hard",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": false,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": false,
+        "wrong_fields": [
+          "vat_amount"
+        ]
+      },
+      "latency_s": 3.46419109999988,
+      "wall_clock_s": 24.131256100001337,
+      "min_confidence": 0.9,
+      "input_tokens": 1648,
+      "output_tokens": 660,
+      "issue_codes": [
+        "vat_mismatch",
+        "total_mismatch"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "vat_mismatch",
+        "total_mismatch"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-009-85f1743e",
+      "kind": "photo",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.337961000001087,
+      "wall_clock_s": 21.69995950000157,
+      "min_confidence": 1.0,
+      "input_tokens": 1660,
+      "output_tokens": 490,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-010-21c8327c",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.527072600001702,
+      "wall_clock_s": 23.06656529999964,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 656,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-011-a3ca452f",
+      "kind": "photo_hard",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.945751699997345,
+      "wall_clock_s": 24.614241200000833,
+      "min_confidence": 1.0,
+      "input_tokens": 1648,
+      "output_tokens": 574,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-012-fb14cf64",
+      "kind": "photo",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.387894999999844,
+      "wall_clock_s": 23.875847999999678,
+      "min_confidence": 1.0,
+      "input_tokens": 1648,
+      "output_tokens": 429,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-013-a674107c",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 5,
+          "actual_count": 5,
+          "amounts_matched": 5,
+          "amounts_total": 5,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.9993281999995816,
+      "wall_clock_s": 24.07361579999997,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 717,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-014-0ebcd775",
+      "kind": "photo",
+      "template": "boxed",
+      "planted_issue": "total_mismatch",
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.177872100000968,
+      "wall_clock_s": 23.801937399999588,
+      "min_confidence": 1.0,
+      "input_tokens": 1632,
+      "output_tokens": 343,
+      "issue_codes": [
+        "total_mismatch"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "total_mismatch"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-015-1abc0d75",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.3540499999980966,
+      "wall_clock_s": 23.358754599998065,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 508,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-016-e0233389",
+      "kind": "photo",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 6.23131149999972,
+      "wall_clock_s": 28.064789899999596,
+      "min_confidence": 1.0,
+      "input_tokens": 1648,
+      "output_tokens": 568,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-017-94e42751",
+      "kind": "pdf",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 5,
+          "actual_count": 5,
+          "amounts_matched": 5,
+          "amounts_total": 5,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.8766727999973227,
+      "wall_clock_s": 24.536251400000765,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 709,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-018-20c3cfdd",
+      "kind": "photo_hard",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.7778675999979896,
+      "wall_clock_s": 20.558395199997904,
+      "min_confidence": 1.0,
+      "input_tokens": 1643,
+      "output_tokens": 584,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-019-a0bd41cb",
+      "kind": "photo_hard",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 5,
+          "actual_count": 5,
+          "amounts_matched": 5,
+          "amounts_total": 5,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 3.4951263000002655,
+      "wall_clock_s": 24.624343999999837,
+      "min_confidence": 1.0,
+      "input_tokens": 1653,
+      "output_tokens": 711,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-020-f0875cc6",
+      "kind": "pdf",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.16332980000152,
+      "wall_clock_s": 23.391571000000113,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 420,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-021-3cada820",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": "vat_mismatch",
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 6,
+          "actual_count": 6,
+          "amounts_matched": 6,
+          "amounts_total": 6,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 4.042440500001248,
+      "wall_clock_s": 24.56565010000122,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 788,
+      "issue_codes": [
+        "vat_mismatch"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "vat_mismatch"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-022-7b11f64d",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.3252195000022766,
+      "wall_clock_s": 24.18018680000023,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 553,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-023-2e2e28ab",
+      "kind": "photo",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.322965400002431,
+      "wall_clock_s": 22.29890869999872,
+      "min_confidence": 1.0,
+      "input_tokens": 1632,
+      "output_tokens": 431,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-024-5503b031",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.1434361999999965,
+      "wall_clock_s": 23.844438799998898,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 424,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-025-7961e300",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.176103099998727,
+      "wall_clock_s": 23.87891650000165,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 500,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-026-8bd1988e",
+      "kind": "pdf",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.600071400000161,
+      "wall_clock_s": 24.482599599999958,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 576,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-027-76c66f91",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": "date_in_future",
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.4588140999985626,
+      "wall_clock_s": 24.300941299999977,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 654,
+      "issue_codes": [
+        "date_in_future"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "date_in_future"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-028-4af55b89",
+      "kind": "photo",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 6,
+          "actual_count": 6,
+          "amounts_matched": 6,
+          "amounts_total": 6,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.992103999997198,
+      "wall_clock_s": 24.39946340000097,
+      "min_confidence": 1.0,
+      "input_tokens": 1656,
+      "output_tokens": 785,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-029-74a0224a",
+      "kind": "photo_hard",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.1789567999985593,
+      "wall_clock_s": 23.72803660000136,
+      "min_confidence": 1.0,
+      "input_tokens": 1670,
+      "output_tokens": 502,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-030-9cf512d4",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 3,
+          "actual_count": 3,
+          "amounts_matched": 3,
+          "amounts_total": 3,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.3978843000004417,
+      "wall_clock_s": 23.41706399999748,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 579,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-031-33cd359f",
+      "kind": "photo_hard",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.619600599999103,
+      "wall_clock_s": 24.446736600002623,
+      "min_confidence": 1.0,
+      "input_tokens": 1653,
+      "output_tokens": 636,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-032-57ae1c78",
+      "kind": "pdf",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 6,
+          "actual_count": 6,
+          "amounts_matched": 6,
+          "amounts_total": 6,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.8173798999996507,
+      "wall_clock_s": 24.420769300002576,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 800,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-033-3ffe44c9",
+      "kind": "photo_hard",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": false,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 5,
+          "actual_count": 5,
+          "amounts_matched": 5,
+          "amounts_total": 5,
+          "all_match": true
+        },
+        "fully_correct": false,
+        "wrong_fields": [
+          "supplier_name"
+        ]
+      },
+      "latency_s": 2.9124797000004037,
+      "wall_clock_s": 24.293332699999155,
+      "min_confidence": 0.95,
+      "input_tokens": 1634,
+      "output_tokens": 743,
+      "issue_codes": [],
+      "should_review": true,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-034-36cfb3e6",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": "tax_code_checksum",
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.5014756999989913,
+      "wall_clock_s": 23.686953500000527,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 468,
+      "issue_codes": [
+        "tax_code_checksum"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "tax_code_checksum"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-035-f1fd133d",
+      "kind": "photo",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 2,
+          "actual_count": 2,
+          "amounts_matched": 2,
+          "amounts_total": 2,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.556274399998074,
+      "wall_clock_s": 23.65626920000068,
+      "min_confidence": 1.0,
+      "input_tokens": 1670,
+      "output_tokens": 491,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-036-94a95321",
+      "kind": "pdf",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.525508799997624,
+      "wall_clock_s": 24.040659599999344,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 635,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-037-29fc6aa1",
+      "kind": "pdf",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 4,
+          "actual_count": 4,
+          "amounts_matched": 4,
+          "amounts_total": 4,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.599954900000739,
+      "wall_clock_s": 24.050412900000083,
+      "min_confidence": 1.0,
+      "input_tokens": 1100,
+      "output_tokens": 654,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-038-a2ab10fc",
+      "kind": "photo_hard",
+      "template": "boxed",
+      "planted_issue": null,
+      "status_as_run": "auto_ok",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": true,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": true
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 1,
+          "actual_count": 1,
+          "amounts_matched": 1,
+          "amounts_total": 1,
+          "all_match": true
+        },
+        "fully_correct": true,
+        "wrong_fields": []
+      },
+      "latency_s": 2.698908099999244,
+      "wall_clock_s": 24.18178160000025,
+      "min_confidence": 1.0,
+      "input_tokens": 1641,
+      "output_tokens": 419,
+      "issue_codes": [],
+      "should_review": false,
+      "route_full": "auto_ok",
+      "issue_codes_recomputed": [],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "auto_ok"
+    },
+    {
+      "doc_id": "doc-039-07bdbd05",
+      "kind": "photo_hard",
+      "template": "compact",
+      "planted_issue": null,
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": true,
+          "supplier_edrpou": false,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": false,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": false
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 6,
+          "actual_count": 6,
+          "amounts_matched": 5,
+          "amounts_total": 6,
+          "all_match": false
+        },
+        "fully_correct": false,
+        "wrong_fields": [
+          "supplier_edrpou",
+          "subtotal",
+          "total",
+          "line_items"
+        ]
+      },
+      "latency_s": 3.275027299998328,
+      "wall_clock_s": 24.688649600000645,
+      "min_confidence": 0.85,
+      "input_tokens": 1648,
+      "output_tokens": 803,
+      "issue_codes": [
+        "tax_code_checksum",
+        "line_amount_mismatch",
+        "subtotal_mismatch",
+        "vat_mismatch"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "tax_code_checksum",
+        "line_amount_mismatch",
+        "subtotal_mismatch",
+        "vat_mismatch"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    },
+    {
+      "doc_id": "doc-040-d51321a8",
+      "kind": "photo_hard",
+      "template": "classic",
+      "planted_issue": null,
+      "status_as_run": "needs_review",
+      "comparison": {
+        "fields": {
+          "supplier_name": false,
+          "supplier_edrpou": true,
+          "buyer_name": true,
+          "buyer_edrpou": true,
+          "invoice_number": true,
+          "invoice_date": true,
+          "currency": true,
+          "subtotal": false,
+          "vat_rate": true,
+          "vat_amount": true,
+          "total": false
+        },
+        "line_items": {
+          "count_match": true,
+          "expected_count": 6,
+          "actual_count": 6,
+          "amounts_matched": 4,
+          "amounts_total": 6,
+          "all_match": false
+        },
+        "fully_correct": false,
+        "wrong_fields": [
+          "supplier_name",
+          "subtotal",
+          "total",
+          "line_items"
+        ]
+      },
+      "latency_s": 3.0174477999971714,
+      "wall_clock_s": 24.32595129999754,
+      "min_confidence": 0.9,
+      "input_tokens": 1656,
+      "output_tokens": 794,
+      "issue_codes": [
+        "subtotal_mismatch"
+      ],
+      "should_review": true,
+      "route_full": "needs_review",
+      "issue_codes_recomputed": [
+        "subtotal_mismatch"
+      ],
+      "route_conf_only": "auto_ok",
+      "route_valid_only": "needs_review"
+    }
+  ]
+}
