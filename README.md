@@ -1,13 +1,3 @@
----
-title: doc-to-crm
-emoji: 🧾
-colorFrom: indigo
-colorTo: gray
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # doc-to-crm
 
 Обробник первинних документів: PDF або фото рахунку на вході — структурований
@@ -119,8 +109,11 @@ docker build -t doc-to-crm .
 docker run --rm -p 7860:7860 --env-file .env doc-to-crm
 ```
 
-Порт читається з `$PORT`, healthcheck б'є в `/health`. У Space ключ кладеться в
-*Settings → Variables and secrets*, у репозиторії його немає ніколи.
+Образ — **83 МБ**; перевірено не лише збірку, а й повний шлях у контейнері:
+`POST /documents` з реальним рахунком → `auto_ok` за 2.14 с, healthcheck
+переходить у `healthy`. Порт читається з `$PORT`, а не зашитий: інакше
+healthcheck мовчки перевіряв би не той сервіс, щойно порт змінили через
+оточення. Ключ передається через `--env-file`, у репозиторії його немає ніколи.
 
 ---
 
