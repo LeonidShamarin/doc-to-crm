@@ -105,7 +105,8 @@ async def test_low_confidence_document_goes_to_review(store, sink, cfg):
                             sink=sink, cfg=cfg)
     doc = await pipe.process_bytes(PDF, "blurry.jpg", "image/jpeg")
     assert doc.status == "needs_review"
-    assert sink.rows(), "документ у черзі все одно фіксується в леджері"
+    assert sink.rows() == [], "документ, що чекає на людину, в обліку ще не існує"
+    assert store.get(doc.doc_id) is not None, "але з черги він не зникає"
 
 
 async def test_validation_can_be_disabled_for_comparison(store, sink, cfg):

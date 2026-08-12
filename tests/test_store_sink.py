@@ -108,11 +108,33 @@ def test_sink_writes_row_and_dedupes(tmp_path):
     assert len(sink.rows()) == 1
 
 
-def test_sink_skips_duplicates_and_failures(tmp_path):
+def test_sink_takes_only_confirmed_documents(tmp_path):
+    """
+    В облік іде лише те, що пройшло перевірки або підтверджене людиною.
+    Дубль, провал і документ у черзі туди не належать.
+    """
     sink = JsonlSink(tmp_path / "ledger.jsonl")
     assert sink.write(make_doc("a", b"1", status="duplicate")) is False
     assert sink.write(make_doc("b", b"2", status="fallback_error")) is False
+    assert sink.write(make_doc("c", b"3", status="needs_review")) is False
     assert sink.rows() == []
+
+
+def test_corrections_reach_the_ledger_after_approval(tmp_path, store):
+    """
+    Регресія: поки документ у черзі, рядка в леджері немає. Якби він там був,
+    дедуплікація за хешем не пустила б виправлену версію, і в обліку назавжди
+    лишилися б непідтверджені числа.
+    """
+    sink = JsonlSink(tmp_path / "ledger.jsonl")
+    doc = make_doc("a", b"1", status="needs_review")
+    store.save(doc)
+    sink.write(doc)
+    assert sink.rows() == []
+
+    approved = store.record_review("a", "approve", corrections={"total": 4242.0})
+    assert sink.write(approved) is True
+    assert sink.rows()[0]["total"] == 4242.0
 
 
 def test_sink_reloads_hashes_after_restart(tmp_path):
