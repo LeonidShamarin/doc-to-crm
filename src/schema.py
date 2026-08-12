@@ -194,7 +194,12 @@ class ProcessedDocument(BaseModel):
     # й місце, де обробка «здалась».
     processing_error: Optional[str] = None
     retries_used: int = 0
+    # Два різні часи: `latency_s` — скільки документ ішов пайплайном загалом
+    # (включно з очікуванням під квоту), `api_latency_s` — скільки тривав сам
+    # виклик моделі. На безкоштовному тірі вони відрізняються майже вдесятеро,
+    # і плутати їх у звіті означає видавати власне тротлення за швидкість моделі.
     latency_s: float = 0.0
+    api_latency_s: float = 0.0
     input_tokens: int = 0
     output_tokens: int = 0
 

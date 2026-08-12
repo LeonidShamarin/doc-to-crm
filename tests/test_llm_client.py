@@ -86,7 +86,7 @@ async def test_self_repair_retries_with_error_text(monkeypatch):
 
     async def fake_call(data, mime_type, prompt):
         prompts.append(prompt)
-        return payloads.pop(0), 100, 50
+        return payloads.pop(0), 100, 50, 1.5
 
     monkeypatch.setattr(client, "_call_model", fake_call)
     result = await client.extract(b"pdf", "application/pdf")
@@ -94,13 +94,14 @@ async def test_self_repair_retries_with_error_text(monkeypatch):
     assert result.retries_used == 1
     assert "невалідною" in prompts[1]
     assert result.input_tokens == 200, "токени обох спроб мають підсумовуватись"
+    assert result.api_latency_s == 3.0, "час обох викликів моделі теж підсумовується"
 
 
 async def test_extraction_error_after_exhausting_repairs(monkeypatch):
     client = make_client(monkeypatch)
 
     async def always_broken(data, mime_type, prompt):
-        return "{", 10, 10
+        return "{", 10, 10, 0.1
 
     monkeypatch.setattr(client, "_call_model", always_broken)
     with pytest.raises(ExtractionError):
@@ -114,7 +115,7 @@ async def test_schema_violation_triggers_repair_not_crash(monkeypatch):
                 make_extraction().model_dump_json()]
 
     async def fake_call(data, mime_type, prompt):
-        return payloads.pop(0), 10, 10
+        return payloads.pop(0), 10, 10, 0.2
 
     monkeypatch.setattr(client, "_call_model", fake_call)
     result = await client.extract(b"pdf", "application/pdf")

@@ -104,6 +104,7 @@ class DocumentPipeline:
             doc.retries_used = result.retries_used
             doc.input_tokens = result.input_tokens
             doc.output_tokens = result.output_tokens
+            doc.api_latency_s = result.api_latency_s
         except DailyQuotaExceeded:
             # Квота — не властивість документа. Прокидаємо далі, щоб прогін
             # зупинився цілком, а не малював fallback на кожен файл поспіль.
@@ -231,7 +232,8 @@ class DocumentPipeline:
             by_status[doc.status] = by_status.get(doc.status, 0) + 1
 
         processed = [d for d in docs if d.status in ("auto_ok", "needs_review")]
-        latencies = sorted(d.latency_s for d in processed)
+        latencies = sorted(d.api_latency_s for d in processed)
+        wall = sorted(d.latency_s for d in processed)
         tokens_in = sum(d.input_tokens for d in docs)
         tokens_out = sum(d.output_tokens for d in docs)
 
@@ -251,12 +253,18 @@ class DocumentPipeline:
             "by_status": by_status,
             "auto_rate": round(by_status.get("auto_ok", 0) / max(1, len(processed)), 4),
             "issues": dict(sorted(issue_counts.items(), key=lambda kv: -kv[1])),
+            # Латентність моделі — без очікування під квоту; `wall_clock_s`
+            # показує, у що це перетворюється на безкоштовному тірі з 5 rpm.
             "latency_s": {
                 "mean": round(sum(latencies) / n, 2) if latencies else 0.0,
                 "p50": round(latencies[len(latencies) // 2], 2) if latencies else 0.0,
-                "p95": round(latencies[int(len(latencies) * 0.95)], 2)
-                if len(latencies) > 1
-                else (round(latencies[0], 2) if latencies else 0.0),
+                "p95": round(latencies[min(len(latencies) - 1, int(len(latencies) * 0.95))], 2)
+                if latencies
+                else 0.0,
+            },
+            "wall_clock_s": {
+                "mean": round(sum(wall) / n, 2) if wall else 0.0,
+                "p50": round(wall[len(wall) // 2], 2) if wall else 0.0,
             },
             "tokens": {"input": tokens_in, "output": tokens_out},
             "cost_usd": {

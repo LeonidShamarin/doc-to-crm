@@ -98,6 +98,11 @@ class ExtractionResult:
     retries_used: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
+    # Час САМОГО виклику моделі, без очікування в rate limiter. Без цього
+    # розділення «латентність» на безкоштовному тірі означає лише «ми
+    # обмежили себе до 5 запитів/хв»: перший документ обробляється за 2.6 с,
+    # решта показують 24 с черги. Для звіту потрібні обидва числа.
+    api_latency_s: float = 0.0
 
 
 class VisionClient(Protocol):
@@ -205,18 +210,21 @@ class GeminiVisionClient:
         prompt = hint or "Витягни реквізити цього документа за схемою."
         last_error: Optional[Exception] = None
         tokens_in = tokens_out = 0
+        api_time = 0.0
 
         for attempt in range(self._max_repair_retries + 1):
             try:
-                raw, used_in, used_out = await self._call_model(data, mime_type, prompt)
+                raw, used_in, used_out, elapsed = await self._call_model(data, mime_type, prompt)
                 tokens_in += used_in
                 tokens_out += used_out
+                api_time += elapsed
                 parsed = InvoiceExtraction.model_validate(_parse_json(raw))
                 return ExtractionResult(
                     extraction=parsed,
                     retries_used=attempt,
                     input_tokens=tokens_in,
                     output_tokens=tokens_out,
+                    api_latency_s=api_time,
                 )
             except (json.JSONDecodeError, ValidationError, ValueError) as exc:
                 last_error = exc
@@ -234,8 +242,14 @@ class GeminiVisionClient:
 
     async def _call_model(
         self, data: bytes, mime_type: str, prompt: str
-    ) -> tuple[str, int, int]:
-        """Один логічний виклик моделі, з exponential backoff на 429/5xx/мережу."""
+    ) -> tuple[str, int, int, float]:
+        """
+        Один логічний виклик моделі, з exponential backoff на 429/5xx/мережу.
+
+        Повертає ще й час самого HTTP-виклику: секундомір стартує ПІСЛЯ
+        `limiter.acquire()`, інакше в «латентність моделі» потрапляє час,
+        який ми самі ж і прочекали під квоту.
+        """
         last_error: Optional[Exception] = None
         part = types.Part.from_bytes(data=data, mime_type=mime_type)
 
@@ -244,11 +258,13 @@ class GeminiVisionClient:
                 raise DailyQuotaExceeded(f"денна квота вичерпана для моделі {self._model_name}")
             try:
                 await self._limiter.acquire()
+                started = time.monotonic()
                 response = await self._client.aio.models.generate_content(
                     model=self._model_name,
                     contents=[part, prompt],
                     config=self._config,
                 )
+                elapsed = time.monotonic() - started
                 text = response.text
                 usage = getattr(response, "usage_metadata", None)
                 tokens_in = getattr(usage, "prompt_token_count", 0) or 0
@@ -257,7 +273,7 @@ class GeminiVisionClient:
                     # Порожня відповідь — напр. спрацював safety-фільтр. Це вже не
                     # транспорт, а зміст: віддаємо нагору, хай самополагодиться.
                     raise ValueError("модель повернула порожню відповідь")
-                return text, tokens_in, tokens_out
+                return text, tokens_in, tokens_out, elapsed
             except Exception as exc:  # noqa: BLE001 — розбираємо тип нижче
                 if _is_daily_quota(exc):
                     self.daily_quota_hit = True

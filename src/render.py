@@ -272,7 +272,7 @@ BANKS = [
 class GeneratedDoc:
     doc_id: str
     template: str
-    kind: Literal["pdf", "photo"]
+    kind: Literal["pdf", "photo", "photo_hard"]
     fields: dict
     # Навмисно закладена в документ невідповідність (напр. підсумок, що не
     # сходиться з позиціями). eval окремо рахує, скільки таких спіймано.
@@ -726,7 +726,7 @@ def render_image(commands: list[Command], scale: float = 2.0):
     return img
 
 
-def degrade(img, rng: random.Random):
+def degrade(img, rng: random.Random, level: str = "normal"):
     """
     Перетворює чисту сторінку на правдоподібне фото документа.
 
@@ -734,8 +734,15 @@ def degrade(img, rng: random.Random):
     знятий не перпендикулярно), потім освітлення (лампа з одного боку), потім
     сенсор (шум), і лише наприкінці — стиснення. Якщо стиснути раніше, артефакти
     JPEG розмажуться наступними кроками і зникнуть.
+
+    Два рівні, і другий з'явився не для краси. На першій версії набору
+    (тільки `normal`) модель дала 100% по кожному полю — такий eval нічого не
+    розрізняє: за ним не видно ні межі застосовності, ні користі від порогів.
+    `hard` — це те, що реально приходить у бухгалтерію: знято здалеку і
+    мимохідь, з рук, у поганому світлі, месенджером ще й перестиснуто.
     """
-    from PIL import Image, ImageChops, ImageEnhance, ImageFilter
+    hard = level == "hard"
+    from PIL import Image, ImageChops, ImageEnhance, ImageFilter, ImageOps
 
     # 0. кадрування: людина знімає аркуш, а не порожній стіл під ним. Без
     # цього кроку половина кадру — біле поле, і текст на фото виходить удвічі
@@ -752,13 +759,21 @@ def degrade(img, rng: random.Random):
             )
         )
 
-    # 1. поворот на невеликий кут — аркуш лежить криво
-    angle = rng.uniform(-4.0, 4.0)
+    # 1. поворот — аркуш лежить криво; на важкому рівні ще й знято похапцем
+    angle = rng.uniform(-6.0, 6.0) if hard else rng.uniform(-4.0, 4.0)
     img = img.rotate(angle, resample=Image.BICUBIC, expand=True, fillcolor=235)
 
-    # 2. перспектива — знято не перпендикулярно до площини аркуша
+    # 2. перспектива — знято не перпендикулярно до площини аркуша.
+    #
+    # Спершу навколо аркуша додається поле. Без нього перетворення семплить із
+    # точок за межами картинки, і при помітному куті з кадру зникає крайня
+    # колонка — та сама, де стоять суми. Виходив не «важкий скан», а зіпсований
+    # документ, за яким еталон уже не перевіриш: людина його теж не прочитає.
+    shift = rng.uniform(0.03, 0.05) if hard else rng.uniform(0.01, 0.035)
+    margin = int(max(img.size) * (shift + 0.02))
+    img = ImageOps.expand(img, border=margin, fill=235)
+
     w2, h2 = img.size
-    shift = rng.uniform(0.01, 0.035)
     dx, dy = w2 * shift, h2 * shift * 0.6
     corners = [
         (rng.uniform(0, dx), rng.uniform(0, dy)),
@@ -770,14 +785,23 @@ def degrade(img, rng: random.Random):
                         resample=Image.BICUBIC, fillcolor=235)
 
     # 3. нерівне освітлення — градієнт яскравості впоперек аркуша
-    img = _apply_light_gradient(img, rng)
+    img = _apply_light_gradient(img, rng, strong=hard)
 
-    # 4. легка розфокусировка і шум сенсора
-    img = img.filter(ImageFilter.GaussianBlur(radius=rng.uniform(0.4, 1.1)))
-    img = _add_noise(img, rng, sigma=rng.uniform(3.0, 9.0))
-    img = ImageEnhance.Contrast(img).enhance(rng.uniform(0.85, 1.05))
+    # 4. знято здалеку: роздільність падає, і дрібний друк у підвалі —
+    # реквізити, ставка ПДВ — перестає бути гарантовано читабельним
+    if hard:
+        scale = rng.uniform(0.58, 0.72)
+        small = (max(1, int(img.size[0] * scale)), max(1, int(img.size[1] * scale)))
+        img = img.resize(small, Image.LANCZOS)
 
-    # 5. фото зі смартфона доходить до нас у JPEG — і це остання ланка
+    # 5. розфокус і шум сенсора
+    img = img.filter(ImageFilter.GaussianBlur(radius=rng.uniform(0.7, 1.2) if hard
+                                              else rng.uniform(0.4, 1.1)))
+    img = _add_noise(img, rng, sigma=rng.uniform(8.0, 13.0) if hard else rng.uniform(3.0, 9.0))
+    img = ImageEnhance.Contrast(img).enhance(rng.uniform(0.7, 0.85) if hard
+                                             else rng.uniform(0.85, 1.05))
+
+    # 6. фото зі смартфона доходить до нас у JPEG — і це остання ланка
     return img
 
 
@@ -821,7 +845,7 @@ def _solve(matrix: list[list[float]], rhs: list[float]) -> list[float]:
     return [aug[i][n] for i in range(n)]
 
 
-def _apply_light_gradient(img, rng: random.Random):
+def _apply_light_gradient(img, rng: random.Random, strong: bool = False):
     """Тінь від лампи збоку: маска-градієнт віднімається від яскравості."""
     from PIL import Image, ImageChops, ImageDraw
 
@@ -829,7 +853,7 @@ def _apply_light_gradient(img, rng: random.Random):
     mask = Image.new("L", (w, h), 0)
     draw = ImageDraw.Draw(mask)
     horizontal = rng.random() < 0.5
-    strength = rng.uniform(20, 60)
+    strength = rng.uniform(70, 115) if strong else rng.uniform(20, 60)
     steps = 48
     for i in range(steps):
         value = int(strength * (i / steps) ** 1.5)
@@ -870,12 +894,17 @@ def generate_dataset(
     golden_path: Path,
     count: int = 40,
     photo_ratio: float = 0.3,
+    hard_ratio: float = 0.25,
     seed: int = 20260812,
     today: Optional[date] = None,
 ) -> list[GeneratedDoc]:
     """
     Генерує датасет і еталон. Детермінований за seed: той самий seed дає
     побайтово ті самі документи, тому числа в README відтворюються.
+
+    `hard_ratio` — частка документів, знятих «погано» (див. `degrade`). Набір
+    без них вироджується: на чистих рендерах модель дає 100% по кожному полю,
+    і метрика перестає щось міряти.
     """
     rng = random.Random(seed)
     today = today or date.today()
@@ -902,14 +931,23 @@ def generate_dataset(
             plant_issue(doc, issue)
 
         doc.commands = LAYOUTS[doc.template](doc)
-        doc.kind = "photo" if rng.random() < photo_ratio else "pdf"
+        roll = rng.random()
+        if roll < hard_ratio:
+            doc.kind = "photo_hard"
+        elif roll < hard_ratio + photo_ratio:
+            doc.kind = "photo"
+        else:
+            doc.kind = "pdf"
 
         if doc.kind == "pdf":
             render_pdf(doc.commands, out_dir / f"{doc.doc_id}.pdf")
         else:
-            img = degrade(render_image(doc.commands), rng)
+            hard = doc.kind == "photo_hard"
+            img = degrade(render_image(doc.commands), rng, level="hard" if hard else "normal")
             img.convert("L").save(
-                out_dir / f"{doc.doc_id}.jpg", quality=rng.randint(45, 70), optimize=True
+                out_dir / f"{doc.doc_id}.jpg",
+                quality=rng.randint(30, 42) if hard else rng.randint(45, 70),
+                optimize=True,
             )
         docs.append(doc)
 

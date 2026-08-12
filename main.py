@@ -18,6 +18,7 @@ import json
 import logging
 import os
 import sys
+from collections import Counter
 from datetime import date
 from pathlib import Path
 
@@ -41,6 +42,12 @@ def _use_system_trust_store() -> None:
     TLS-інспекцією корпоративний корінь є у сховищі ОС, але не в certifi — і всі
     виклики падають з CERTIFICATE_VERIFY_FAILED. truststore бере довіру звідти,
     де вона реально налаштована. Перевірку сертифікатів це не послаблює.
+
+    Викликається ОДИН раз у `main()`, а не в кожній команді окремо. Перша версія
+    робила саме так — і `eval` лишився без нього: сорок документів поспіль
+    впали з CERTIFICATE_VERIFY_FAILED, хоча `process` на тому самому файлі
+    працював. Це той клас помилки, який не ловиться тестами без мережі, тому
+    єдина точка виклику тут важливіша за економію одного рядка.
     """
     try:
         import truststore
@@ -105,13 +112,14 @@ def cmd_gen_dataset(args: argparse.Namespace) -> int:
         seed=args.seed,
         today=date.today(),
     )
-    photos = sum(1 for d in docs if d.kind == "photo")
+    kinds = Counter(d.kind for d in docs)
     planted = [d for d in docs if d.planted_issue]
     logger.info(
-        "згенеровано %d документів (%d PDF, %d фото), шаблонів: %d, з підміною: %d",
+        "згенеровано %d документів (%d PDF, %d фото, %d важких фото), шаблонів: %d, з підміною: %d",
         len(docs),
-        len(docs) - photos,
-        photos,
+        kinds["pdf"],
+        kinds["photo"],
+        kinds["photo_hard"],
         len({d.template for d in docs}),
         len(planted),
     )
@@ -127,7 +135,6 @@ async def _run_process(args: argparse.Namespace) -> int:
     from src.sinks import JsonlSink
     from src.store import DocumentStore
 
-    _use_system_trust_store()
     cfg = _config_from_args(args)
     client = GeminiVisionClient(api_key=_require_key(), model_name=cfg.model, rpm=cfg.rpm,
                                 temperature=cfg.temperature)
@@ -159,7 +166,6 @@ async def _run_watch(args: argparse.Namespace) -> int:
     from src.store import DocumentStore
     from src.watcher import watch_folder
 
-    _use_system_trust_store()
     cfg = _config_from_args(args)
     client = GeminiVisionClient(api_key=_require_key(), model_name=cfg.model, rpm=cfg.rpm,
                                 temperature=cfg.temperature)
@@ -187,7 +193,6 @@ def cmd_serve(args: argparse.Namespace) -> int:
 
     from src.app import create_app
 
-    _use_system_trust_store()
     app = create_app(db_path=args.db, sink_path=args.sink)
     port = args.port or int(os.environ.get("PORT", "7860"))
     uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
@@ -267,6 +272,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     load_dotenv()
+    # До розбору аргументів і до будь-якого мережевого виклику: жодна команда
+    # не має шансу опинитися без системного сховища сертифікатів.
+    _use_system_trust_store()
     args = build_parser().parse_args()
     return args.func(args)
 

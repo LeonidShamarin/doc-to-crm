@@ -217,7 +217,11 @@ def build_records(
             "planted_issue": entry.get("planted_issue"),
             "status_as_run": doc.status,
             "comparison": comparison,
-            "latency_s": doc.latency_s,
+            "latency_s": doc.api_latency_s,
+            "wall_clock_s": doc.latency_s,
+            "min_confidence": (
+                min(doc.extraction.confidence.model_dump().values()) if doc.extraction else 0.0
+            ),
             "input_tokens": doc.input_tokens,
             "output_tokens": doc.output_tokens,
             "issue_codes": [i.code for i in doc.issues],
@@ -285,6 +289,18 @@ def aggregate(records: list[dict], cfg: PipelineConfig) -> dict:
     ]
 
     latencies = sorted(r["latency_s"] for r in records if r["latency_s"] > 0)
+    wall = sorted(r.get("wall_clock_s", 0.0) for r in records if r.get("wall_clock_s", 0.0) > 0)
+
+    # Калібрування впевненості: чи взагалі цей сигнал щось відрізняє. Якщо
+    # модель ставить собі 1.0 і на чистому PDF, і на зім'ятому фото — сигналу
+    # немає, скільки б поріг не крутили, і це має бути видно числом.
+    confidences = [r.get("min_confidence", 0.0) for r in records]
+    confidence_stats = {
+        "mean_min_confidence": round(sum(confidences) / len(confidences), 4),
+        "docs_below_threshold": sum(1 for c in confidences if c < cfg.min_field_confidence),
+        "docs_at_1.0": sum(1 for c in confidences if c >= 0.999),
+        "lowest": round(min(confidences), 2),
+    }
     tokens_in = sum(r["input_tokens"] for r in records)
     tokens_out = sum(r["output_tokens"] for r in records)
     cost = (
@@ -323,6 +339,11 @@ def aggregate(records: list[dict], cfg: PipelineConfig) -> dict:
             if latencies
             else 0.0,
         },
+        "wall_clock_s": {
+            "mean": round(sum(wall) / len(wall), 2) if wall else 0.0,
+            "p50": round(wall[len(wall) // 2], 2) if wall else 0.0,
+        },
+        "confidence": confidence_stats,
         "tokens": {"input": tokens_in, "output": tokens_out,
                    "per_doc_input": round(tokens_in / total), "per_doc_output": round(tokens_out / total)},
         "cost_usd": {"run": round(cost, 4), "per_1000_docs": round(cost / total * 1000, 2)},
@@ -388,10 +409,35 @@ def to_markdown(report: dict) -> str:
         lines.append(f"| {doc_id} | `{info['planted']}` | {'так' if info['caught'] else 'ні'} |")
     lines.append("")
 
+    conf = report.get("confidence")
+    if conf:
+        lines.append("## Чи працює впевненість моделі як сигнал")
+        lines.append("")
+        lines.append(
+            f"- Середня мінімальна впевненість по документу: **{conf['mean_min_confidence']}**"
+        )
+        lines.append(
+            f"- Документів, де модель поставила собі 1.0 по ВСІХ полях: "
+            f"**{conf['docs_at_1.0']} з {report['documents']}**"
+        )
+        lines.append(
+            f"- Документів із хоч одним полем нижче порогу: **{conf['docs_below_threshold']}** "
+            f"(найнижче значення на всьому наборі — {conf['lowest']})"
+        )
+        lines.append("")
+
     cost, roi, lat = report["cost_usd"], report["roi"], report["latency_s"]
+    wall = report.get("wall_clock_s", {})
     lines.append("## Час і вартість")
     lines.append("")
-    lines.append(f"- Латентність: середня {lat['mean']} с, p50 {lat['p50']} с, p95 {lat['p95']} с")
+    lines.append(
+        f"- Латентність моделі: середня {lat['mean']} с, p50 {lat['p50']} с, p95 {lat['p95']} с"
+    )
+    if wall:
+        lines.append(
+            f"- Час документа в пайплайні разом з очікуванням під квоту 5 запитів/хв: "
+            f"середній {wall.get('mean')} с, p50 {wall.get('p50')} с"
+        )
     lines.append(f"- Токенів на документ: {report['tokens']['per_doc_input']} вхідних, "
                  f"{report['tokens']['per_doc_output']} вихідних")
     lines.append(f"- Вартість 1000 документів: **${cost['per_1000_docs']}**")
