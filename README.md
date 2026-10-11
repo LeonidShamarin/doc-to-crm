@@ -1,118 +1,117 @@
+**English** | [Українська](README.uk.md)
+
 # doc-to-crm
 
-Обробник первинних документів: PDF або фото рахунку на вході — структурований
-запис в обліку на виході. Сумнівні документи не проходять мовчки, а стають у
-чергу на ручну перевірку **з поясненням, що саме не зійшлося**.
+A processor for primary accounting documents: a PDF or a photo of an invoice goes in, a
+structured ledger entry comes out. Doubtful documents do not pass silently; they go to a manual
+review queue **with an explanation of what exactly did not match**.
 
-Головна теза проекту в одному реченні:
+The project's main point in one sentence:
 
-> **Модель галюцинує суми — тому суми перевіряє Python, а не модель.**
+> **The model hallucinates amounts, so amounts are checked by Python, not by the model.**
 
-Мовна модель бачить «12 400,00» і «12 480,00» як два схожі рядки. Різниця у
-вісімдесят гривень для неї не є арифметичною помилкою — вона взагалі не рахує.
-Тому все, що можна перерахувати або перевірити контрольною цифрою, перераховує
-код: суми позицій, ПДВ, підсумок, контрольна цифра ЄДРПОУ, дата. Модель відповідає
-лише за одне — **прочитати те, що надруковано**.
+A language model sees "12 400,00" and "12 480,00" as two similar strings. An eighty-hryvnia
+difference is not an arithmetic error for it: it does not calculate at all. So everything that
+can be recomputed or checked with a check digit is recomputed by code: line amounts, VAT, the
+total, the EDRPOU (Ukrainian company code) check digit, the date. The model is responsible for
+one thing only: **reading what is printed**.
 
-![Черга ручної перевірки: три розбіжності на одному документі, виправлення і підтвердження](docs/review-ui.gif)
+![Review queue: three mismatches on one document, a correction and the confirmation](docs/review-ui.gif)
 
-На записі — реальний прогін, не макет: важке фото рахунку, на якому модель
-прочитала одну цифру ЄДРПОУ невірно. Код не пройшов контрольну цифру, суми не
-зійшлися, документ став у чергу з трьома поясненнями; після правки й
-підтвердження він іде в облік уже з виправленими числами.
+The recording is a real run, not a mock-up: a hard photo of an invoice on which the model read
+one digit of the EDRPOU wrong. The code failed the check digit, the amounts did not add up, the
+document went to the queue with three explanations; after a correction and confirmation it goes
+to the ledger with the fixed numbers.
 
-Друга теза була така: **впевненість по кожному полю, а не на документ** — щоб
-підсвітити рев'юверу рівно ті поля, які модель прочитала невпевнено. Вона
-реалізована, і вимірювання показало, що вона **не працює**: модель ставить собі
-1.00 практично завжди, зокрема й там, де помиляється. Це не привід її ховати —
-навпаки, це найцікавіший результат проекту, і він нижче з числами.
-
----
-
-## Головне число
-
-На 40 документах (`gemini-3.5-flash-lite`, повний звіт — [`output/eval-report.md`](output/eval-report.md)):
-
-> **Впевненість моделі спіймала 0 з 9 проблемних документів. Арифметика на
-> Python — 8 з 9.**
-
-Модель поставила собі 1.00 по всіх полях у **36 документах із 40**; найнижче
-значення на всьому наборі — 0.85, тобто **жодне поле жодного разу не опустилося
-нижче порогу 0.75**. Включно з тими документами, де вона прочитала `9489.98` як
-`9490.98`. Самозвіт моделі про власну впевненість тут не є сигналом — і це рівно
-той випадок, коли гарний на вигляд механізм («confidence per field») треба було
-не декларувати, а поміряти.
-
-Решта цифр — у розділі [Метрики](#метрики).
+The second point was: **confidence per field, not per document**, to highlight for the reviewer
+exactly the fields the model read uncertainly. It is implemented, and measurement showed that it
+**does not work**: the model gives itself 1.00 practically always, including where it is wrong.
+That is no reason to hide it; on the contrary, it is the most interesting result of the project,
+and it is below with numbers.
 
 ---
 
-## Швидкий старт
+## The headline number
+
+On 40 documents (`gemini-3.5-flash-lite`, full report in [`output/eval-report.md`](output/eval-report.md)):
+
+> **The model's confidence caught 0 of 9 problem documents. Arithmetic in Python caught 8 of 9.**
+
+The model gave itself 1.00 on every field in **36 documents of 40**; the lowest value in the whole
+set is 0.85, meaning **no field ever dropped below the 0.75 threshold**. Including the documents
+where it read `9489.98` as `9490.98`. The model's self-report of its own confidence is not a
+signal here, and this is exactly the case where a nice-looking mechanism ("confidence per field")
+had to be measured rather than declared.
+
+The rest of the numbers are in [Metrics](#metrics).
+
+---
+
+## Quick start
 
 ```bash
 python -m venv .venv
 .venv/Scripts/pip install -r requirements.txt     # Linux/macOS: .venv/bin/pip
 
 cp .env.example .env
-# вписати у .env: GEMINI_API_KEY=<ключ з https://aistudio.google.com/apikey>
+# in .env: GEMINI_API_KEY=<key from https://aistudio.google.com/apikey>
 
-.venv/Scripts/python main.py gen-dataset          # 40 синтетичних документів + еталон
+.venv/Scripts/python main.py gen-dataset          # 40 synthetic documents + golden data
 .venv/Scripts/python main.py process data/synthetic --report output/run.json
-.venv/Scripts/python main.py serve                # review-UI на http://localhost:7860
+.venv/Scripts/python main.py serve                # review UI at http://localhost:7860
 ```
 
-Без ключа сервіс **усе одно піднімається**: черга, review-UI і рішення людини
-працюють, `/health` показує `extraction_enabled: false`, а `POST /documents`
-віддає 503. Це свідомо: показувати порожню форму замість екстракції означало б
-робити демо, яке виглядає працюючим і не є ним.
+Without a key the service **still starts**: the queue, the review UI and a person's decisions
+work, `/health` shows `extraction_enabled: false`, and `POST /documents` returns 503. That is
+deliberate: showing an empty form instead of extraction would mean a demo that looks working
+and is not.
 
-### Команди
+### Commands
 
-| Команда | Що робить |
+| Command | What it does |
 |---|---|
-| `gen-dataset` | Генерує синтетичні рахунки + еталон `data/golden.jsonl` |
-| `process <шлях>` | Обробляє файл або теку, пише в SQLite і леджер |
-| `watch [тека]` | Стежить за текою і обробляє нові файли |
-| `serve` | HTTP API + review-UI на порту `PORT` (дефолт 7860) |
-| `eval` | Точність по полях і якість маршрутизації проти еталона |
+| `gen-dataset` | Generates synthetic invoices + golden data `data/golden.jsonl` |
+| `process <path>` | Processes a file or a folder, writes to SQLite and the ledger |
+| `watch [folder]` | Watches a folder and processes new files |
+| `serve` | HTTP API + review UI on `PORT` (default 7860) |
+| `eval` | Per-field accuracy and routing quality against the golden data |
 
-Корисні опції:
+Useful options:
 
 ```bash
 main.py process data/synthetic --concurrency 2 --limit 5
-main.py process data/synthetic --min-confidence 0.9   # суворіший поріг
-main.py process data/synthetic --no-validation        # вимкнути шар перевірок
-main.py eval --from-ledger output/eval-run.json       # метрики без викликів моделі
+main.py process data/synthetic --min-confidence 0.9   # a stricter threshold
+main.py process data/synthetic --no-validation        # turn off the validation layer
+main.py eval --from-ledger output/eval-run.json       # metrics without model calls
 main.py watch data/inbox --interval 3 --max-cycles 20
 ```
 
-### Змінні оточення
+### Environment variables
 
-| Змінна | Дефолт | Навіщо |
+| Variable | Default | Why |
 |---|---|---|
-| `GEMINI_API_KEY` | — | Обов'язкова для екстракції |
-| `DOC_MODEL` | `gemini-3.5-flash-lite` | Модель |
-| `MIN_FIELD_CONFIDENCE` | `0.75` | Поріг, нижче якого поле підсвічується, а документ іде людині |
-| `DOC_RPM` | `5` | Ліміт запитів на хвилину (квота безкоштовного тіру) |
-| `PORT` | `7860` | Порт сервісу; саме його очікує HF Spaces |
+| `GEMINI_API_KEY` | — | Required for extraction |
+| `DOC_MODEL` | `gemini-3.5-flash-lite` | Model |
+| `MIN_FIELD_CONFIDENCE` | `0.75` | Threshold below which a field is highlighted and the document goes to a person |
+| `DOC_RPM` | `5` | Requests per minute limit (free tier quota) |
+| `PORT` | `7860` | Service port; the one HF Spaces expects |
 
-### Тести
+### Tests
 
 ```bash
-.venv/Scripts/python -m pytest -q          # звичайний прогін
-.\scripts\run_tests_capped.ps1             # з лімітом пам'яті (Windows + Docker)
+.venv/Scripts/python -m pytest -q          # a regular run
+.\scripts\run_tests_capped.ps1             # with a memory limit (Windows + Docker)
 ```
 
-**111 тестів, жодного мережевого виклику.** Ключ не потрібен: LLM підмінений
-фейковим клієнтом, який реалізує той самий протокол `VisionClient`.
+**111 tests, not a single network call.** No key needed: the LLM is replaced by a fake client
+that implements the same `VisionClient` protocol.
 
-`run_tests_capped.ps1` ганяє набір у контейнері з `--memory 1g`, тобто ліміт
-тримає ядро через cgroups. Це не параноя: незакритий цикл у тестах одного разу
-з'їв 27 ГБ і поклав редактор. Попередня версія ставила таку саму стелю через
-Windows Job Object і P/Invoke до `kernel32` — і Avast карантинував її як
-`IDP.HELU.PSD11` (евристика «маніпуляція процесами», хибне спрацювання).
-Перевірено, що стеля справді тримає: спроба виділити 3 ГБ під лімітом 512 МБ
-дає код виходу 137 — процес убиває ядро, хост цілий.
+`run_tests_capped.ps1` runs the suite in a container with `--memory 1g`, so the kernel holds the
+limit through cgroups. This is not paranoia: an unclosed loop in the tests once ate 27 GB and took
+down the editor. The previous version set the same ceiling through a Windows Job Object and
+P/Invoke into `kernel32`, and Avast quarantined it as `IDP.HELU.PSD11` (a "process manipulation"
+heuristic, a false positive). Checked that the ceiling really holds: trying to allocate 3 GB under
+a 512 MB limit exits with code 137; the kernel kills the process, the host is fine.
 
 ### Docker
 
@@ -121,185 +120,182 @@ docker build -t doc-to-crm .
 docker run --rm -p 7860:7860 --env-file .env doc-to-crm
 ```
 
-Образ — **83 МБ**; перевірено не лише збірку, а й повний шлях у контейнері:
-`POST /documents` з реальним рахунком → `auto_ok` за 2.14 с, healthcheck
-переходить у `healthy`. Порт читається з `$PORT`, а не зашитий: інакше
-healthcheck мовчки перевіряв би не той сервіс, щойно порт змінили через
-оточення. Ключ передається через `--env-file`, у репозиторії його немає ніколи.
+The image is **83 MB**; not only the build was checked but the full path inside the container:
+`POST /documents` with a real invoice → `auto_ok` in 2.14 s, and the healthcheck turns `healthy`.
+The port is read from `$PORT`, not hard-coded: otherwise the healthcheck would silently check the
+wrong service as soon as the port was changed through the environment. The key is passed with
+`--env-file`; it is never in the repository.
 
 ---
 
-## Схема даних
+## Data schema
 
-`InvoiceExtraction` (`src/schema.py`) — єдине джерело правди: та сама модель іде
-в Gemini як `response_schema` і нею ж валідується сира відповідь.
+`InvoiceExtraction` (`src/schema.py`) is the single source of truth: the same model goes to Gemini
+as `response_schema` and validates the raw response.
 
 ```
 doc_type, supplier_name, supplier_edrpou, buyer_name, buyer_edrpou,
 invoice_number, invoice_date, currency,
 line_items[{description, quantity, unit, unit_price, amount}],
 subtotal, vat_rate, vat_amount, total,
-confidence{по кожному полю окремо, 0.0–1.0}
+confidence{for each field separately, 0.0-1.0}
 ```
 
-Два рішення, які варто пояснити:
+Two decisions worth explaining:
 
-**Дата приходить рядком, а не типом `date`.** Якщо модель віддасть «31.02.2026»,
-Pydantic із типом `date` зронив би весь документ у `ValidationError`, і причина
-лишилась би невидимою. Розбирає дату Python — і формує зрозумілу розбіжність
-(`date_unparseable`, з тим, що саме прочитано) замість винятку.
+**The date arrives as a string, not as a `date` type.** If the model returns "31.02.2026", Pydantic
+with a `date` type would drop the whole document into a `ValidationError`, and the reason would
+stay invisible. Python parses the date and produces a clear mismatch (`date_unparseable`, with
+what exactly was read) instead of an exception.
 
-**Впевненість — модель із явними полями, а не `dict[str, float]`.** Словник із
-довільними ключами в JSON-схемі Gemini перетворюється на `additionalProperties`,
-і модель починає вигадувати ключі, яких у документі немає. Явний перелік робить
-схему замкненою; розсинхрон переліку з кодом ловить тест.
+**Confidence is a model with explicit fields, not `dict[str, float]`.** A dictionary with arbitrary
+keys becomes `additionalProperties` in Gemini's JSON schema, and the model starts inventing keys
+that are not in the document. An explicit list makes the schema closed; a test catches the list
+drifting out of sync with the code.
 
 ---
 
-## Три речі, які відрізняють це від «чату з PDF»
+## Three things that make this different from "chat with a PDF"
 
-### 1. Шар валідації поза LLM
+### 1. A validation layer outside the LLM
 
-`src/validate.py` не знає про модель узагалі й тому повністю покритий тестами
-без мережі. Що перевіряється:
+`src/validate.py` knows nothing about the model and so is fully covered by tests without network.
+What is checked:
 
-| Перевірка | Приклад розбіжності |
+| Check | Example mismatch |
 |---|---|
-| `line_amount_mismatch` | кількість × ціна ≠ сума рядка |
-| `subtotal_mismatch` | сума позицій ≠ підсумок без ПДВ |
-| `vat_mismatch` | ПДВ не відповідає ставці та базі |
-| `total_mismatch` | підсумок + ПДВ ≠ сума до сплати |
-| `tax_code_checksum` | ЄДРПОУ не проходить контрольну цифру |
-| `date_in_future` | документ датований завтрашнім днем |
-| `duplicate_invoice_number` | цей номер від цього постачальника вже є |
+| `line_amount_mismatch` | quantity × price ≠ line amount |
+| `subtotal_mismatch` | sum of lines ≠ subtotal before VAT |
+| `vat_mismatch` | VAT does not match the rate and the base |
+| `total_mismatch` | subtotal + VAT ≠ amount due |
+| `tax_code_checksum` | the EDRPOU fails the check digit |
+| `date_in_future` | the document is dated tomorrow |
+| `duplicate_invoice_number` | this number from this supplier already exists |
 
-Кожна розбіжність несе `expected` і `actual`: рев'ювер бачить не «сума не
-зійшлася», а «мало бути 12 000.00, у документі 12 000.50».
+Every mismatch carries `expected` and `actual`: the reviewer sees not "the amount did not match"
+but "should be 12 000.00, the document says 12 000.50".
 
-**Контрольна цифра ЄДРПОУ** — окрема історія. Ваги залежать від діапазону коду
-(для 30 000 000–60 000 000 вони зсунуті), а якщо залишок дорівнює 10, рахунок
-повторюється з вагами, збільшеними на 2. Алгоритм звірений на публічних кодах
-реальних юросіб; тест окремо перевіряє, що **будь-яка одна невірно прочитана
-цифра ловиться** — саме та помилка, яку робить OCR на зім'ятому куті.
+**The EDRPOU check digit** is a story of its own. The weights depend on the code range (for
+30 000 000-60 000 000 they are shifted), and if the remainder equals 10, the calculation is
+repeated with weights increased by 2. The algorithm was checked against public codes of real
+companies; a test separately checks that **any single misread digit is caught**, exactly the
+mistake OCR makes on a crumpled corner.
 
-Толерантність при звірці сум росте з кількістю позицій: кожен рядок округлюють
-окремо, тож на 20 позиціях законна розбіжність теж до 20 копійок. Без цього шар
-валідації сипав би хибними тривогами на нормальних документах.
+The tolerance when reconciling amounts grows with the number of lines: each line is rounded
+separately, so on 20 lines a legitimate difference is up to 20 kopecks too. Without this the
+validation layer would pour false alarms over normal documents.
 
-### 2. Ідемпотентність на двох рівнях
+### 2. Idempotency at two levels
 
-| Рівень | Ключ | Поведінка |
+| Level | Key | Behaviour |
 |---|---|---|
-| Точний | SHA-256 вмісту | Той самий файл під іншою назвою не проходить двічі; **модель не викликається взагалі** |
-| М'який | номер документа + ЄДРПОУ постачальника | Перескан того самого рахунку: байти інші, документ той самий → в чергу до людини |
+| Exact | SHA-256 of the content | The same file under another name does not pass twice; **the model is not called at all** |
+| Soft | document number + supplier EDRPOU | A rescan of the same invoice: different bytes, same document → to a person's queue |
 
-М'який дубль навмисно **не** блокується мовчки: це може бути й легітимне
-виправлення, і вирішувати має людина. Точний — блокується, і саме на ньому
-економиться виклик моделі: watcher перечитує теку кожні три секунди, і без цієї
-перевірки платив би за кожен оберт.
+A soft duplicate is deliberately **not** blocked silently: it can also be a legitimate correction,
+and a person should decide. An exact one is blocked, and that is where a model call is saved: the
+watcher rereads the folder every three seconds and without this check would pay for every round.
 
-Перевірка йде **до** виклику моделі — тест `test_duplicate_costs_no_model_call`
-стежить саме за цим.
+The check happens **before** the model call; the `test_duplicate_costs_no_model_call` test watches
+exactly that.
 
-### 3. Одна маршрутизація, два незалежні сигнали
+### 3. One routing, two independent signals
 
-Документ потрапляє до людини з двох різних причин — так задумувалось:
+A document reaches a person for two different reasons; that was the design:
 
-- **валідація** ловить те, що модель прочитала впевнено й неправильно — класика:
-  акуратно надрукована сума, яка не сходиться з позиціями;
-- **впевненість** мала ловити те, що модель сама не змогла прочитати — зім'ятий
-  кут, обрізаний скан: помилки ще немає, але довіри теж.
+- **validation** catches what the model read confidently and wrongly, the classic case: a neatly
+  printed amount that does not add up with the lines;
+- **confidence** was supposed to catch what the model itself could not read: a crumpled corner, a
+  cropped scan; no error yet, but no trust either.
 
-Гіпотеза була, що одне без іншого діряве. Вимірювання її не підтвердило: другий
-сигнал на цьому наборі не спрацював жодного разу (див. [Метрики](#метрики)).
-Механізм лишився в коді — він коштує нуль додаткових викликів, а на документах,
-де реально не видно поля, поводитиметься інакше, — але **носієм якості є перший
-сигнал**, і README не має цього прикрашати.
+The hypothesis was that each is leaky without the other. Measurement did not confirm it: the
+second signal did not fire once on this set (see [Metrics](#metrics)). The mechanism stayed in the
+code (it costs zero extra calls, and on documents where a field is really unreadable it will
+behave differently), but **the first signal carries the quality**, and the README should not
+dress that up.
 
-Саме заради такої перевірки три конфігурації маршрутизації (валідація +
-впевненість / тільки впевненість / тільки валідація) рахуються **з одного
-прогону**: перерахунок іде по збережених екстракціях, тому таблиця порівняння
-коштує один прогін, а не три.
+For exactly this check, three routing configurations (validation + confidence / confidence only /
+validation only) are computed **from one run**: the recomputation goes over the saved extractions,
+so the comparison table costs one run, not three.
 
-Наслідок для обліку: **у леджер потрапляє тільки `auto_ok`** — те, що пройшло
-перевірки або було підтверджене людиною. Документ, який чекає на рішення, в
-обліку ще не існує; він живе в SQLite-черзі. Спокуса писати туди й `needs_review`
-(«щоб нічого не загубилось») обертається тихою втратою даних: рядок ліг би з
-непідтвердженими числами, а після правки рев'ювера дедуплікація за хешем уже не
-пустила б виправлену версію. На це є окремий регресійний тест.
+The consequence for the ledger: **only `auto_ok` gets into the ledger**, i.e. what passed the
+checks or was confirmed by a person. A document waiting for a decision does not exist in the
+ledger yet; it lives in the SQLite queue. The temptation to write `needs_review` there too ("so
+nothing gets lost") turns into quiet data loss: the row would land with unconfirmed numbers, and
+after the reviewer's correction deduplication by hash would no longer let the fixed version in.
+There is a separate regression test for this.
 
 ---
 
-## Чотири рівні стійкості
+## Four levels of resilience
 
-Рівні розділені, бо це різні класи проблем, і плутати їх дорого.
+The levels are separated because these are different classes of problem, and mixing them up is
+expensive.
 
-| Рівень | Реагує на | Що робить |
+| Level | Reacts to | What it does |
 |---|---|---|
-| Rate limiter | квоту безкоштовного тіру | рознесення викликів у часі, щоб не влітати в 429 |
-| Backoff | 429 хвилинний, 5xx, обрив мережі | пауза й повтор; слухає `retryDelay` сервера |
-| Circuit breaker | **денну** квоту | миттєве падіння, без марних викликів |
-| Self-repair | невалідний JSON / Pydantic | показати моделі її ж помилку |
+| Rate limiter | the free tier quota | spreads calls over time so as not to run into 429 |
+| Backoff | per-minute 429, 5xx, network drop | a pause and a retry; listens to the server's `retryDelay` |
+| Circuit breaker | the **daily** quota | fails immediately, no pointless calls |
+| Self-repair | invalid JSON / Pydantic | shows the model its own error |
 
-Плюс те, що не є рівнем стійкості, а є інваріантом: **жоден вхідний файл не
-губиться**. Провал після всіх retry — це запис зі статусом `fallback_error` і
-технічною причиною, а не тиша в логах. Агрегати рахуються тільки по успішних.
+Plus something that is not a resilience level but an invariant: **no input file is lost**. A
+failure after all retries is a record with status `fallback_error` and the technical reason, not
+silence in the logs. Aggregates are computed over successful ones only.
 
-`MemoryError` і `RecursionError` навмисно **не** загортаються у fallback: це стан
-процесу, а не помилка документа. Якщо їх ковтнути, цикл поїде далі й добʼє
-машину — рівно так один із попередніх проектів і поклав редактор.
-
----
-
-## Датасет
-
-Реальних чужих документів у репозиторії немає — тільки згенеровані. Але
-генератор влаштований так, щоб датасет був чесним:
-
-- **Макет описується один раз**, списком примітивів, і рендериться двома
-  бекендами: reportlab → PDF із текстовим шаром, Pillow → растр. Якби макет
-  писався окремо для кожного, PDF і фото поволі розійшлися б, і різниця в
-  метриках означала б різницю макетів, а не якості входу.
-- **«Фото» псуються в порядку фізики**: кадрування → поворот → перспектива →
-  нерівне освітлення → розфокус і шум сенсора → JPEG. Стиснути раніше означало б
-  розмазати артефакти наступними кроками.
-- **Два рівні складності фото, і другий з'явився не для краси.** На першій
-  версії набору модель дала 100% по кожному полю — такий eval нічого не
-  розрізняє: за ним не видно ні межі застосовності, ні користі від порогів.
-  Рівень `hard` — це те, що реально приходить у бухгалтерію: знято здалеку і
-  мимохідь, у поганому світлі, месенджером ще й перестиснуто. Межу довелося
-  калібрувати: перша спроба виявилася занадто агресивною і виносила з кадру
-  крайню колонку — ту саму, де стоять суми. Виходив не важкий скан, а зіпсований
-  документ, за яким еталон уже не перевіриш, бо людина його теж не прочитає.
-  Тому перед перспективним перетворенням навколо аркуша додається поле.
-- **Коди ЄДРПОУ добудовуються з валідною контрольною цифрою** — інакше шар
-  перевірок світився б помилками на власному датасеті й нічого не міряв.
-- **Суми прописом** дають друге, незалежне джерело правди про підсумок — модель,
-  яка «домалювала» цифру, майже завжди суперечить прописові.
-- **Еталон пишеться тим самим кодом, що малює документ**, тому розмітка не може
-  розійтися з картинкою.
-
-Окремо в набір закладені 5 документів із **навмисною невідповідністю**
-(підсумок не сходиться, ПДВ від старої бази, дата в майбутньому, зіпсована
-контрольна цифра). Псується саме документ, а не еталон: модель, яка правильно
-прочитала надруковані числа, вважається такою, що спрацювала вірно, а спіймати
-невідповідність має шар валідації. Це те, що на реальних документах трапляється
-регулярно.
+`MemoryError` and `RecursionError` are deliberately **not** wrapped into a fallback: they are a
+state of the process, not an error of the document. If they are swallowed, the loop carries on and
+finishes off the machine; that is exactly how one of my earlier projects took down the editor.
 
 ---
 
-## Метрики
+## Dataset
 
-Один прогін, 40 документів, `python main.py eval`. Сирий прогін збережений у
-[`output/eval-run.json`](output/eval-run.json), тому всі таблиці нижче
-відтворюються без жодного виклику моделі: `main.py eval --from-ledger
-output/eval-run.json`.
+There are no real third-party documents in the repository, only generated ones. But the generator
+is built so that the dataset is honest:
 
-**Повністю коректних документів: 90.0%** (36 з 40).
+- **The layout is described once**, as a list of primitives, and rendered by two backends:
+  reportlab → PDF with a text layer, Pillow → raster. If the layout were written separately for
+  each, the PDF and the photo would slowly drift apart, and a difference in metrics would mean a
+  difference in layouts, not in input quality.
+- **"Photos" are degraded in the order of physics**: cropping → rotation → perspective → uneven
+  lighting → defocus and sensor noise → JPEG. Compressing earlier would smear the artefacts with
+  the following steps.
+- **Two levels of photo difficulty, and the second did not appear for looks.** On the first version
+  of the set the model scored 100% on every field; such an eval tells nothing apart: it shows
+  neither the limits of applicability nor the use of thresholds. The `hard` level is what really
+  reaches an accounting department: shot from a distance in passing, in bad light, and recompressed
+  by a messenger on top. The boundary had to be calibrated: the first attempt was too aggressive and
+  pushed the outer column out of frame, the very one with the amounts. The result was not a hard
+  scan but a ruined document that could no longer be checked against the golden data, because a
+  person could not read it either. So a margin is added around the sheet before the perspective
+  transform.
+- **EDRPOU codes are completed with a valid check digit**; otherwise the validation layer would
+  light up with errors on its own dataset and measure nothing.
+- **Amounts in words** give a second, independent source of truth about the total: a model that
+  "painted in" a digit almost always contradicts the words.
+- **The golden data is written by the same code that draws the document**, so the labels cannot
+  drift from the picture.
 
-### Точність по полях
+Separately, the set has 5 documents with a **deliberate mismatch** (the total does not add up, VAT
+from an old base, a date in the future, a broken check digit). The document is spoiled, not the
+golden data: a model that correctly read the printed numbers counts as having worked correctly,
+and catching the mismatch is the validation layer's job. That is what happens regularly with real
+documents.
 
-| Поле | Точність | Поле | Точність |
+---
+
+## Metrics
+
+One run, 40 documents, `python main.py eval`. The raw run is saved in
+[`output/eval-run.json`](output/eval-run.json), so every table below is reproduced without a single
+model call: `main.py eval --from-ledger output/eval-run.json`.
+
+**Fully correct documents: 90.0%** (36 of 40).
+
+### Per-field accuracy
+
+| Field | Accuracy | Field | Accuracy |
 |---|---|---|---|
 | `supplier_name` | 95.0% | `subtotal` | 95.0% |
 | `supplier_edrpou` | 97.5% | `vat_rate` | 100.0% |
@@ -308,181 +304,169 @@ output/eval-run.json`.
 | `invoice_number` | 100.0% | `line_items` | 95.0% |
 | `invoice_date` | 100.0% | `currency` | 100.0% |
 
-### Маршрутизація: що ловить кожен шар
+### Routing: what each layer catches
 
-Три конфігурації, пораховані з одного прогону.
+Three configurations, computed from one run.
 
-| Конфігурація | Спіймано | Пропущено | Хибних тривог | Recall | Precision | Автоматично |
+| Configuration | Caught | Missed | False alarms | Recall | Precision | Automatic |
 |---|---|---|---|---|---|---|
-| валідація + впевненість | 8 | 1 | 0 | **88.9%** | 100.0% | 80.0% |
-| тільки впевненість | 0 | 9 | 0 | **0.0%** | — | 100.0% |
-| тільки валідація | 8 | 1 | 0 | **88.9%** | 100.0% | 80.0% |
+| validation + confidence | 8 | 1 | 0 | **88.9%** | 100.0% | 80.0% |
+| confidence only | 0 | 9 | 0 | **0.0%** | — | 100.0% |
+| validation only | 8 | 1 | 0 | **88.9%** | 100.0% | 80.0% |
 
-Другий і третій рядки — це і є висновок проекту. Шар перевірок на Python робить
-усю роботу; впевненість моделі не додає **нічого**: рядки 1 і 3 збігаються
-до документа.
+The second and third rows are the project's conclusion. The Python checks do all the work; the
+model's confidence adds **nothing**: rows 1 and 3 match document for document.
 
-`recall` тут важливіший за `precision` свідомо: пропущена помилка потрапляє в
-облік мовчки, а зайвий документ у черзі коштує 45 секунд уваги. Хибних тривог,
-до речі, не було жодної — толерантність до копійчаних розбіжностей, яка росте з
-кількістю позицій, себе виправдала.
+`recall` matters more than `precision` here on purpose: a missed error reaches the ledger silently,
+while an extra document in the queue costs 45 seconds of attention. There were no false alarms at
+all, by the way: the tolerance for kopeck-level differences that grows with the number of lines
+proved itself.
 
-### Де саме ламається: PDF проти фото
+### Where exactly it breaks: PDF vs photo
 
-| Вхід | Документів | Повністю коректних | Точність `total` | Recall маршрутизації |
+| Input | Documents | Fully correct | `total` accuracy | Routing recall |
 |---|---|---|---|---|
-| PDF із текстовим шаром | 22 | **100.0%** | 100.0% | 100.0% |
-| фото, звичайне | 8 | **100.0%** | 100.0% | 100.0% |
-| фото, важке | 10 | **60.0%** | 80.0% | 75.0% |
+| PDF with a text layer | 22 | **100.0%** | 100.0% | 100.0% |
+| photo, normal | 8 | **100.0%** | 100.0% | 100.0% |
+| photo, hard | 10 | **60.0%** | 80.0% | 75.0% |
 
-**Усі чотири помилки екстракції — на важких фото.** І всі однакові за природою:
-одна цифра прочитана невірно там, де друк дрібний і розмитий.
+**All four extraction errors are on hard photos.** And all are the same in nature: one digit read
+wrong where the print is small and blurred.
 
-| Документ | Що прочитано | Спіймав валідатор? |
+| Document | What was read | Caught by the validator? |
 |---|---|---|
-| doc-008 | ПДВ `9489.98` → `9490.98` | так: `vat_mismatch`, `total_mismatch` |
-| doc-039 | ЄДРПОУ `26789019` → `26780019`, сума рядка `147978.6` → `147978.0` | так: `tax_code_checksum`, `line_amount_mismatch` |
-| doc-040 | суми рядків `3642.6` → `3642.0`, `41580.96` → `41580.0` | так: `subtotal_mismatch` |
-| doc-033 | `ТОВ «Агросвіт-Плюс»` → `ТОВ «Агро світ-Плюс»` | **ні** |
+| doc-008 | VAT `9489.98` → `9490.98` | yes: `vat_mismatch`, `total_mismatch` |
+| doc-039 | EDRPOU `26789019` → `26780019`, line amount `147978.6` → `147978.0` | yes: `tax_code_checksum`, `line_amount_mismatch` |
+| doc-040 | line amounts `3642.6` → `3642.0`, `41580.96` → `41580.0` | yes: `subtotal_mismatch` |
+| doc-033 | `ТОВ «Агросвіт-Плюс»` → `ТОВ «Агро світ-Плюс»` | **no** |
 
-Останній рядок — єдина пропущена помилка на всьому наборі, і вона показує межу
-підходу чесніше за будь-яку з тих, що спіймані: **арифметика захищає числа, назву
-не захищає ніщо.** Зайвий пробіл у назві контрагента нема з чим звірити, і модель
-була впевнена в ній на 0.95. Правильна відповідь — довідник контрагентів і
-звірка за ЄДРПОУ, а не вищий поріг впевненості.
+The last row is the only missed error in the whole set, and it shows the limit of the approach more
+honestly than any of the caught ones: **arithmetic protects numbers, nothing protects a name.** An
+extra space in a counterparty's name has nothing to be checked against, and the model was 0.95 sure
+of it. The right answer is a counterparty directory and matching by EDRPOU, not a higher confidence
+threshold.
 
-Порівняння з еталоном при цьому строге: у doc-040 модель ще й написала
-`ФОП Кравченко I. М.` з латинською `I` замість кириличної `І` — це зараховано як
-розбіжність, хоча для людини назва та сама.
+The comparison with the golden data is strict, too: in doc-040 the model also wrote
+`ФОП Кравченко I. М.` with a Latin `I` instead of a Cyrillic `І`; that counted as a mismatch,
+although for a person the name is the same.
 
-### Закладені невідповідності
+### Planted mismatches
 
-**5 з 5.** Кожен документ із навмисно зіпсованою арифметикою, датою в
-майбутньому чи битою контрольною цифрою пішов на перевірку саме з тим кодом
-розбіжності, який був закладений.
+**5 of 5.** Every document with deliberately spoiled arithmetic, a date in the future or a broken
+check digit went to review with exactly the mismatch code that was planted.
 
-### Час і вартість
+### Time and cost
 
 | | |
 |---|---|
-| Латентність моделі | середня **2.77 с**, p50 2.6 с, p95 4.65 с |
-| Час у пайплайні з очікуванням під квоту 5 запитів/хв | середній 23.3 с, p50 24.1 с |
-| Токенів на документ | 1347 вхідних, 591 вихідних |
-| **Вартість 1000 документів** | **$0.37** |
-| Людино-годин на 1000 документів | вручну 50.0 → з системою **2.5** |
+| Model latency | mean **2.77 s**, p50 2.6 s, p95 4.65 s |
+| Time in the pipeline including waiting for the 5 requests/min quota | mean 23.3 s, p50 24.1 s |
+| Tokens per document | 1347 input, 591 output |
+| **Cost per 1000 documents** | **$0.37** |
+| Person-hours per 1000 documents | by hand 50.0 → with the system **2.5** |
 
-Два різні числа латентності — навмисно. Модель відповідає за 2.8 с; 23 секунди —
-це наше власне тротлення під безкоштовний тір, і видавати його за швидкість
-моделі було б підміною.
+Two different latency numbers, on purpose. The model answers in 2.8 s; the 23 seconds are our own
+throttling for the free tier, and passing that off as the model's speed would be a substitution.
 
-ROI рахується консервативно: 180 с на документ вручну (нижня межа з опису
-задачі) проти 45 с на перегляд одного документа в черзі, при частці ручної
-перевірки 20%.
+The ROI is computed conservatively: 180 s per document by hand (the lower bound from the task
+description) against 45 s to review one document in the queue, with a 20% share of manual review.
 
 ---
 
-## Де рішення ламається / обмеження
+## Where it breaks / limits
 
-- **Одна сторінка.** Пайплайн віддає моделі файл цілком, але еталон і схема
-  розраховані на односторінковий документ. Багатосторінковий акт із таблицею на
-  три аркуші зараз дасть позиції тільки з тієї сторінки, яку модель вважатиме
-  головною. Правильно — розбивати на сторінки і зшивати позиції.
-- **Впевненість моделі не калібрована — і це виміряно, а не припущено.** 36 з 40
-  документів отримали 1.00 по всіх полях, найнижче значення на наборі — 0.85,
-  нижче порогу 0.75 не опустилося жодне поле жодного разу. Поріг тут не «треба
-  підкрутити»: рухати його немає куди, бо розподілу немає. Робочий варіант —
-  брати невпевненість не зі слів моделі, а з поведінки: два прогони з
-  `temperature > 0` і порівняння відповідей, або logprobs, якщо провайдер їх
-  віддає.
-- **Назви контрагентів нема з чим звірити.** Єдина пропущена помилка на всьому
-  наборі — зайвий пробіл у назві постачальника. Числа захищає арифметика, дати —
-  календар, коди — контрольна цифра, а назву не захищає ніщо. Це не лікується
-  порогом, це лікується довідником контрагентів.
-- **Датасет синтетичний, і його складність задав я сам.** Перша версія була
-  занадто легкою — 100% по всіх полях; після посилення деградації з'явилися
-  реальні 60% на важких фото. Але це все одно рендер, а не справжній папір:
-  ні згинів, ні тіні від руки, ні печаток поверх тексту, ні перевернутих
-  сторінок. Числа варто читати як верхню оцінку.
-- **Денна квота ≠ хвилинна.** Gemini у *всіх* 429 повертає `retryDelay` — навіть
-  коли вичерпана добова квота. Слухати цю пораду наосліп означає годинами
-  крутити безнадійні retry. Розпізнається по `quotaId` (`PerDay`) → circuit
-  breaker зупиняє прогін. **Не закрито**: недороблені документи не
-  доганяються автоматично, це треба запускати руками.
-- **Немає докачування перерваного прогону.** SQLite тримає стан, тому повторний
-  запуск не задвоїть оброблене, але вибрати «тільки те, що лишилось» окремою
-  командою поки не можна — це прапорець, якого бракує.
-- **Sink лише локальний.** Інтерфейс `Sink` спроектований під зовнішній облік
-  (перевірка «чи запис уже там» винесена в нього саме тому, що ні Sheets, ні
-  Odoo не мають UNIQUE-індексу за нашим хешем), але реалізація зараз одна —
-  JSONL. Odoo-адаптер через JSON-RPC — наступний крок, коли буде інстанс.
-- **Валюта не конвертується.** Рахунок у USD лягає в леджер у USD. Для реального
-  обліку потрібен курс на дату документа — це окреме джерело даних.
-- **`--no-validation` існує тільки для eval.** Це вимикач для одного рядка
-  таблиці порівняння, а не режим роботи.
-- **Review-UI не показує сам документ.** Рев'ювер бачить поля, розбіжності й
-  впевненість, але щоб звірити з оригіналом, файл треба відкрити окремо.
-  Прев'ю сторінки поруч із полями — найочевидніше, чого бракує.
-- **TLS-інспекція — і те, як я на ній усе одно спіткнувся.** У мережах із
-  корпоративним проксі `certifi` не містить локального кореня, і всі виклики
-  падають з `CERTIFICATE_VERIFY_FAILED`. Закрито через `truststore` (довіра
-  береться зі сховища ОС); перевірку сертифікатів при цьому **не** вимкнено — це
-  було б тим самим, що працювати без TLS. Пастка була не в самому виправленні, а
-  в тому, що воно викликалося в кожній команді окремо — і рівно одна, `eval`,
-  лишилася без нього. `process` на тому самому файлі працював, а `eval` поклав
-  усі 40 документів у `fallback_error`. Тепер виклик один, у `main()`, до розбору
-  аргументів. Тестами без мережі такий клас помилки не ловиться в принципі.
-- **«Латентність» на безкоштовному тірі легко видати за швидкість моделі.**
-  Перша версія міряла час документа в пайплайні цілком — а туди входить
-  очікування під квоту 5 запитів/хв. Виходило p50 ≈ 24 с, хоча сам виклик триває
-  секунди. Тепер секундомір стартує після rate limiter, і у звіті два різні
-  числа: час моделі й час у черзі.
+- **One page.** The pipeline gives the model the whole file, but the golden data and the schema
+  assume a one-page document. A multi-page act with a table over three sheets will now give lines
+  only from the page the model considers the main one. The right way is to split into pages and
+  stitch the lines together.
+- **The model's confidence is not calibrated, and that is measured, not assumed.** 36 of 40
+  documents got 1.00 on every field, the lowest value in the set is 0.85, no field ever dropped below
+  the 0.75 threshold. The threshold is not "something to tweak": there is nowhere to move it,
+  because there is no distribution. A working option is to take uncertainty not from the model's
+  words but from its behaviour: two runs with `temperature > 0` and comparing the answers, or
+  logprobs if the provider returns them.
+- **Counterparty names have nothing to be checked against.** The only missed error in the whole set
+  is an extra space in a supplier's name. Arithmetic protects numbers, the calendar protects dates,
+  the check digit protects codes, and nothing protects a name. A threshold does not cure that; a
+  counterparty directory does.
+- **The dataset is synthetic, and I set its difficulty myself.** The first version was too easy,
+  100% on every field; after harder degradation a real 60% on hard photos appeared. But it is still
+  a render, not real paper: no folds, no hand shadows, no stamps over the text, no upside-down
+  pages. Read the numbers as an upper bound.
+- **A daily quota is not a per-minute quota.** Gemini returns `retryDelay` in *every* 429, even when
+  the daily quota is exhausted. Obeying that advice blindly means hours of hopeless retries.
+  Recognised by `quotaId` (`PerDay`) → a circuit breaker stops the run. **Not closed**: unfinished
+  documents are not caught up automatically; that has to be started by hand.
+- **No resume for an interrupted run.** SQLite keeps state, so a repeated run does not double what
+  was processed, but there is no separate command to pick "only what is left" yet; it is a missing
+  flag.
+- **The sink is local only.** The `Sink` interface is designed for an external ledger (the "is the
+  record already there" check sits in it precisely because neither Sheets nor Odoo has a UNIQUE
+  index on our hash), but there is only one implementation now, JSONL. An Odoo adapter over
+  JSON-RPC is the next step once there is an instance.
+- **Currency is not converted.** An invoice in USD lands in the ledger in USD. Real accounting needs
+  the exchange rate on the document date, which is a separate data source.
+- **`--no-validation` exists only for eval.** It is a switch for one row of the comparison table, not
+  an operating mode.
+- **The review UI does not show the document itself.** The reviewer sees fields, mismatches and
+  confidence, but to compare with the original the file has to be opened separately. A page preview
+  next to the fields is the most obvious thing missing.
+- **TLS inspection, and how I still tripped over it.** On networks with a corporate proxy `certifi`
+  lacks the local root and every call fails with `CERTIFICATE_VERIFY_FAILED`. Closed with
+  `truststore` (trust comes from the OS store); certificate verification was **not** turned off,
+  that would be the same as working without TLS. The trap was not in the fix itself but in it being
+  called in each command separately, and exactly one, `eval`, was left without it. `process` on the
+  same file worked, while `eval` put all 40 documents into `fallback_error`. Now there is one call,
+  in `main()`, before parsing arguments. Tests without network cannot catch this class of error in
+  principle.
+- **On the free tier "latency" is easy to pass off as model speed.** The first version measured a
+  document's time through the whole pipeline, which includes waiting for the 5 requests/min quota.
+  That gave p50 ≈ 24 s, although the call itself takes seconds. Now the stopwatch starts after the
+  rate limiter, and the report has two different numbers: model time and queue time.
 
 ---
 
-## Що зробив би далі
+## What I would do next
 
-Порядок — за тим, що дало б найбільше на виміряних числах, а не за тим, що
-цікавіше писати.
+Ordered by what would give the most on the measured numbers, not by what is more fun to write.
 
-1. **Довідник контрагентів і звірка за ЄДРПОУ.** Закриває єдину пропущену
-   помилку набору: код проходить контрольну цифру, а назва не збігається з
-   довідником — документ на перевірку. Заразом дає нормалізацію назв, тобто
-   прибирає і латинську `I` в «Кравченко І. М.».
-2. **Невпевненість із поведінки, а не зі слів моделі.** Самозвіт виміряно —
-   він не працює. Дешевий замінник: другий прогін із `temperature > 0` для
-   документів, які пройшли автоматично, і розбіжність між відповідями як сигнал.
-   Дорожчий: logprobs, якщо провайдер їх віддає.
-3. **Прев'ю документа в review-UI** поруч із полями — найдешевше поліпшення
-   досвіду людини, яка й так уже відкрила чергу.
-4. **Odoo через JSON-RPC** як другий sink: `res.partner` за ЄДРПОУ,
-   `account.move` з позиціями, ідемпотентність — пошуком за номером і
-   контрагентом перед записом.
-5. **Багатосторінкові документи**: розбиття на сторінки, окрема екстракція,
-   зшивання позицій із перевіркою наскрізної нумерації.
+1. **A counterparty directory and matching by EDRPOU.** Closes the only missed error of the set: the
+   code passes the check digit, but the name does not match the directory, so the document goes to
+   review. It also normalises names, which removes the Latin `I` in "Кравченко І. М." too.
+2. **Uncertainty from behaviour, not from the model's words.** The self-report is measured and does
+   not work. A cheap substitute: a second run with `temperature > 0` for documents that passed
+   automatically, with disagreement between the answers as the signal. A more expensive one:
+   logprobs, if the provider returns them.
+3. **A document preview in the review UI** next to the fields: the cheapest improvement for the
+   person who has already opened the queue anyway.
+4. **Odoo over JSON-RPC** as a second sink: `res.partner` by EDRPOU, `account.move` with lines,
+   idempotency by searching for the number and counterparty before writing.
+5. **Multi-page documents**: splitting into pages, separate extraction, stitching the lines with a
+   check of continuous numbering.
 
 ---
 
-## Структура
+## Structure
 
 ```
 doc-to-crm/
 ├── main.py                  # CLI: gen-dataset / process / watch / serve / eval
 ├── src/
-│   ├── schema.py            # Pydantic-контракт + впевненість по полях
-│   ├── config.py            # конфіг пайплайна, ціни, пороги
-│   ├── llm.py               # Gemini vision: 4 рівні стійкості
-│   ├── validate.py          # перевірки поза LLM: арифметика, ЄДРПОУ, дати
-│   ├── pipeline.py          # оркестрація: хеш → екстракція → перевірки → маршрут
-│   ├── store.py             # SQLite: ідемпотентність, черга, рішення рев'ювера
-│   ├── sinks.py             # JSONL-леджер (інтерфейс під зовнішній облік)
-│   ├── watcher.py           # опитування теки з запобіжниками
+│   ├── schema.py            # Pydantic contract + per-field confidence
+│   ├── config.py            # pipeline config, prices, thresholds
+│   ├── llm.py               # Gemini vision: 4 levels of resilience
+│   ├── validate.py          # checks outside the LLM: arithmetic, EDRPOU, dates
+│   ├── pipeline.py          # orchestration: hash → extraction → checks → route
+│   ├── store.py             # SQLite: idempotency, queue, reviewer decisions
+│   ├── sinks.py             # JSONL ledger (interface for an external ledger)
+│   ├── watcher.py           # folder polling with safeguards
 │   ├── app.py               # FastAPI: /health, /documents, /queue, /review
-│   ├── render.py            # генератор датасету: один макет, два бекенди
-│   └── evaluate.py          # метрики: точність по полях + маршрутизація
-├── web/index.html           # review-UI
-├── data/synthetic/          # 40 документів: 22 PDF, 8 фото, 10 важких фото
-├── data/golden.jsonl        # еталон
-├── tests/                   # 111 тестів, жодного мережевого виклику
+│   ├── render.py            # dataset generator: one layout, two backends
+│   └── evaluate.py          # metrics: per-field accuracy + routing
+├── web/index.html           # review UI
+├── data/synthetic/          # 40 documents: 22 PDF, 8 photos, 10 hard photos
+├── data/golden.jsonl        # golden data
+├── tests/                   # 111 tests, not a single network call
 ├── scripts/run_tests_capped.ps1
-└── Dockerfile               # порт 7860, healthcheck на /health
+└── Dockerfile               # port 7860, healthcheck on /health
 ```
