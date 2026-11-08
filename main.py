@@ -131,13 +131,13 @@ def cmd_gen_dataset(args: argparse.Namespace) -> int:
 
 async def _run_process(args: argparse.Namespace) -> int:
     from src.pipeline import DocumentPipeline
-    from src.llm import GeminiVisionClient
+    from src.llm import build_vision_client
     from src.sinks import JsonlSink
     from src.store import DocumentStore
 
     cfg = _config_from_args(args)
-    client = GeminiVisionClient(api_key=_require_key(), model_name=cfg.model, rpm=cfg.rpm,
-                                temperature=cfg.temperature)
+    _require_key()  # помилка, якщо ключа немає
+    client = build_vision_client(cfg.model, cfg.rpm, cfg.temperature)
     store = DocumentStore(args.db)
     sink = JsonlSink(args.sink)
     pipeline = DocumentPipeline(client=client, store=store, sink=sink, cfg=cfg)
@@ -160,15 +160,15 @@ def cmd_process(args: argparse.Namespace) -> int:
 
 
 async def _run_watch(args: argparse.Namespace) -> int:
-    from src.llm import GeminiVisionClient
+    from src.llm import build_vision_client
     from src.pipeline import DocumentPipeline
     from src.sinks import JsonlSink
     from src.store import DocumentStore
     from src.watcher import watch_folder
 
     cfg = _config_from_args(args)
-    client = GeminiVisionClient(api_key=_require_key(), model_name=cfg.model, rpm=cfg.rpm,
-                                temperature=cfg.temperature)
+    _require_key()  # помилка, якщо ключа немає
+    client = build_vision_client(cfg.model, cfg.rpm, cfg.temperature)
     store = DocumentStore(args.db)
     sink = JsonlSink(args.sink)
     pipeline = DocumentPipeline(client=client, store=store, sink=sink, cfg=cfg)

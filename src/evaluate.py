@@ -485,7 +485,7 @@ async def run_eval(args: argparse.Namespace) -> int:
     else:
         import os
 
-        from src.llm import GeminiVisionClient
+        from src.llm import build_vision_client
         from src.pipeline import DocumentPipeline
         from src.sinks import JsonlSink
         from src.store import DocumentStore
@@ -499,9 +499,7 @@ async def run_eval(args: argparse.Namespace) -> int:
         # документи як дублі й порахує метрики по порожньому набору.
         if Path(args.db).exists():
             Path(args.db).unlink()
-        client = GeminiVisionClient(
-            api_key=api_key, model_name=cfg.model, rpm=cfg.rpm, temperature=cfg.temperature
-        )
+        client = build_vision_client(cfg.model, cfg.rpm, cfg.temperature)
         store = DocumentStore(args.db)
         pipeline = DocumentPipeline(
             client=client, store=store, sink=JsonlSink(args.sink), cfg=cfg

@@ -25,6 +25,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os
 import random
 import re
 import time
@@ -316,3 +317,69 @@ def _parse_json(raw: str) -> dict:
     if not isinstance(data, dict):
         raise ValueError(f"очікувався JSON-об'єкт, отримано {type(data).__name__}")
     return data
+
+
+# --- фолбек між кількома Gemini-ключами --------------------------------------
+#
+# Витяг реквізитів тут мультимодальний (документ як є, inline) з `response_schema`
+# Gemini — крос-провайдерний фолбек означав би інший формат і інші vision-моделі.
+# Натомість ротуємо Gemini-ключі: основний GEMINI_API_KEY, далі ключі з ключі2.txt
+# (GEMINI_API_KEY_2/_3) в останню чергу — це покриває мертвий ключ і вичерпану за
+# добу квоту. Кожен ключ має власний клієнт (свій rate limiter і прапорець квоти).
+
+_GEMINI_KEY_VARS = ("GEMINI_API_KEY", "GEMINI_API_KEY_2", "GEMINI_API_KEY_3")
+
+
+class FallbackVisionClient:
+    """Пробує Gemini-ключі по черзі; на `ExtractionError`/`DailyQuotaExceeded`
+    бере наступний. Кидає помилку лише коли відмовили всі ключі, тож пайплайн,
+    як і раніше, перетворює її на запис зі статусом `fallback_error`."""
+
+    def __init__(self, members: list[tuple[str, GeminiVisionClient]]):
+        if not members:
+            raise ValueError("порожній ланцюжок Gemini-ключів")
+        self.members = members
+
+    async def extract(self, data: bytes, mime_type: str, hint: str = "") -> ExtractionResult:
+        errors: list[str] = []
+        for name, client in self.members:
+            try:
+                return await client.extract(data, mime_type, hint)
+            except (ExtractionError, DailyQuotaExceeded) as exc:
+                errors.append(f"{name}: {str(exc)[:150]}")
+        raise ExtractionError("усі Gemini-ключі відмовили -> " + " | ".join(errors))
+
+
+def _gemini_keys(env: dict) -> list[tuple[str, str]]:
+    out: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for var in _GEMINI_KEY_VARS:
+        key = (env.get(var) or "").strip()
+        if key and key not in seen:
+            seen.add(key)
+            out.append((var, key))
+    return out
+
+
+def build_vision_client(
+    model_name: str = DEFAULT_MODEL,
+    rpm: int = DEFAULT_RPM,
+    temperature: float = 0.0,
+    *,
+    env: dict | None = None,
+):
+    """Збирає vision-клієнт із ланцюжком Gemini-ключів, або `None`, якщо жодного
+    ключа немає (як і раніше). Один ключ — звичайний `GeminiVisionClient`, кілька —
+    обгортка з фолбеком."""
+    env = os.environ if env is None else env
+    keys = _gemini_keys(env)
+    if not keys:
+        return None
+    members = [
+        (f"gemini:{var}",
+         GeminiVisionClient(api_key=key, model_name=model_name, temperature=temperature, rpm=rpm))
+        for var, key in keys
+    ]
+    if len(members) == 1:
+        return members[0][1]
+    return FallbackVisionClient(members)

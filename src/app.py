@@ -14,7 +14,6 @@ HTTP-сервіс: приймання документів і review-UI.
 from __future__ import annotations
 
 import logging
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -23,7 +22,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
 from src.config import config_from_env
-from src.llm import DailyQuotaExceeded, GeminiVisionClient
+from src.llm import DailyQuotaExceeded, build_vision_client
 from src.pipeline import SUPPORTED_TYPES, MAX_FILE_BYTES, DocumentPipeline
 from src.sinks import JsonlSink
 from src.store import DocumentStore
@@ -61,14 +60,11 @@ def create_app(
     cfg = config_from_env()
 
     if pipeline is None:
-        api_key = os.environ.get("GEMINI_API_KEY", "").strip()
-        if api_key:
-            client = GeminiVisionClient(
-                api_key=api_key, model_name=cfg.model, rpm=cfg.rpm, temperature=cfg.temperature
-            )
+        client = build_vision_client(cfg.model, cfg.rpm, cfg.temperature)
+        if client is not None:
             pipeline = DocumentPipeline(client=client, store=store, sink=sink, cfg=cfg)
         else:
-            logger.warning("GEMINI_API_KEY не заданий — приймання документів вимкнено")
+            logger.warning("жодного Gemini-ключа не задано — приймання документів вимкнено")
 
     app.state.store = store
     app.state.sink = sink
