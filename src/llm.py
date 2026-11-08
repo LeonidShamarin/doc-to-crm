@@ -345,7 +345,7 @@ class FallbackVisionClient:
         for name, client in self.members:
             try:
                 return await client.extract(data, mime_type, hint)
-            except (ExtractionError, DailyQuotaExceeded) as exc:
+            except (ExtractionError, DailyQuotaExceeded, genai_errors.APIError) as exc:
                 errors.append(f"{name}: {str(exc)[:150]}")
         raise ExtractionError("усі Gemini-ключі відмовили -> " + " | ".join(errors))
 
